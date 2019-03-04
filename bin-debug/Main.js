@@ -79,6 +79,8 @@ var Main = (function (_super) {
         return _this;
     }
     Main.prototype.onAddToStage = function (event) {
+        // 赋值Global.stage，方便后面访问stage
+        Global.stage = this.stage;
         egret.lifecycle.addLifecycleListener(function (context) {
             // custom lifecycle plugin
             context.onUpdate = function () {
@@ -157,8 +159,8 @@ var Main = (function (_super) {
      * Create a game scene
      */
     Main.prototype.createGameScene = function () {
-        Global.stage = this.stage;
-        Global.addScene(new MenuScene());
+        // Global.addScene(new MenuScene())
+        Global.addScene(new GameScene());
     };
     return Main;
 }(egret.DisplayObjectContainer));

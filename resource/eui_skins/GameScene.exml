@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="GameSceneSkin" width="400" height="300" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
+<e:Skin class="GameSceneSkin" width="512" height="768" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" >
 	<w:Config id="16946c4d0a4" ></w:Config>
+	<e:Image id="bg1" source="img_bg_level_2_jpg" x="0" y="0"/>
+	<e:Image id="bg2" source="img_bg_level_2_jpg" x="0" y="-768"/>
 </e:Skin>

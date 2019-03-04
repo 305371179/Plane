@@ -37,7 +37,8 @@ class Main extends egret.DisplayObjectContainer {
     }
 
     private onAddToStage(event: egret.Event) {
-
+        // 赋值Global.stage，方便后面访问stage
+        Global.stage = this.stage
         egret.lifecycle.addLifecycleListener((context) => {
             // custom lifecycle plugin
 
@@ -100,7 +101,8 @@ class Main extends egret.DisplayObjectContainer {
      * Create a game scene
      */
     private createGameScene() {
-        Global.stage = this.stage
-        Global.addScene(new MenuScene())
+        
+        // Global.addScene(new MenuScene())
+        Global.addScene(new GameScene())
     }
 }
