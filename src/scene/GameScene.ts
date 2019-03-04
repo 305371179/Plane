@@ -8,6 +8,8 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 	private bgSpeed:number = 0.5;
 	//记录上一帧的时间
 	private timeOnEnterFrame:number = 0;
+	// 玩家飞机
+	public heroPlane:HeroPlane;
 	public constructor() {
 		super();
 	}
@@ -21,7 +23,13 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 	protected childrenCreated():void
 	{
 		super.childrenCreated();
+		this.init()
 		this.setListeners()
+	}
+	private init() {
+		this.heroPlane = new HeroPlane('hero_png')
+		this.heroPlane.appear(Global.stage.stageWidth/2, Global.stage.stageHeight * 2/3)
+		this.addChild(this.heroPlane)
 	}
 	/*设置监听*/
 	private setListeners() {
@@ -34,8 +42,8 @@ class GameScene extends eui.Component implements  eui.UIComponent {
         const time = this.timeOnEnterFrame;
         const pass = now - time;
 		this.timeOnEnterFrame = now
+		//当帧频低于30帧，就跳过，一般来说，页面从后台转入前台就会出现低于30帧的情况
 		if(pass > this.timeInterval * 2) {
-			console.log(pass,'返回这一帧')
 			return
 		}
 		this.scrollBg(pass)

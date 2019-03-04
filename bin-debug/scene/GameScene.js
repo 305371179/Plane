@@ -24,7 +24,13 @@ var GameScene = (function (_super) {
     };
     GameScene.prototype.childrenCreated = function () {
         _super.prototype.childrenCreated.call(this);
+        this.init();
         this.setListeners();
+    };
+    GameScene.prototype.init = function () {
+        this.heroPlane = new HeroPlane('hero_png');
+        this.heroPlane.appear(Global.stage.stageWidth / 2, Global.stage.stageHeight * 2 / 3);
+        this.addChild(this.heroPlane);
     };
     /*设置监听*/
     GameScene.prototype.setListeners = function () {
@@ -36,8 +42,8 @@ var GameScene = (function (_super) {
         var time = this.timeOnEnterFrame;
         var pass = now - time;
         this.timeOnEnterFrame = now;
+        //当帧频低于30帧，就跳过，一般来说，页面从后台转入前台就会出现低于30帧的情况
         if (pass > this.timeInterval * 2) {
-            console.log(pass, '返回这一帧');
             return;
         }
         this.scrollBg(pass);
