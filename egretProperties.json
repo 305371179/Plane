@@ -9,6 +9,9 @@
     {
       "name": "egret"
     },
+     {
+      "name": "eui"
+    },
     {
       "name": "game"
     },
@@ -17,9 +20,6 @@
     },
     {
       "name": "assetsmanager"
-    },
-    {
-      "name": "eui"
     },
     {
       "name": "promise"
