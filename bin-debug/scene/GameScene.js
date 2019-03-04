@@ -36,9 +36,21 @@ var GameScene = (function (_super) {
     /*设置监听*/
     GameScene.prototype.setListeners = function () {
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
-        this.touchEnabled = true;
+        // this.touchEnabled = true
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchStart, this);
         this.addEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
+        //通过事件的监听，可以让代码解耦合，不用在对象里保留对方的引用
+        this.heroPlane.addEventListener('setHP', this.setHP, this);
+        this.heroPlane.addEventListener('setScore', this.setScore, this);
+        //初始化分数和血量
+        this.heroPlane.dispatchHPEvent();
+        this.heroPlane.dispatchScoreEvent();
+    };
+    GameScene.prototype.setHP = function (event) {
+        this.hp.text = event.data;
+    };
+    GameScene.prototype.setScore = function (event) {
+        this.score.text = event.data;
     };
     GameScene.prototype.removeListener = function () {
         this.touchEnabled = false;
@@ -46,6 +58,8 @@ var GameScene = (function (_super) {
         this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchStart, this);
         this.removeEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
         this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+        this.heroPlane.removeEventListener('setHP', this.setHP, this);
+        this.heroPlane.removeEventListener('setScore', this.setScore, this);
     };
     GameScene.prototype.touchStart = function (e) {
         this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);

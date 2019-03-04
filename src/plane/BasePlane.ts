@@ -1,7 +1,7 @@
 /*飞机的基类，提供通用的方法和属性*/
 class BasePlane extends BaseObject{
 	//血量
-	public hp:number = 10000;
+	protected hp:number = 10000;
 	//攻击力
 	public atk:number = 10;
 	//飞行速度

@@ -1,4 +1,7 @@
 class GameScene extends eui.Component implements  eui.UIComponent {
+	//分数和血量的显示
+	private hp:eui.BitmapLabel;
+	private score:eui.BitmapLabel;
 	// 正常情况下，60fps的时间是1/60 * 1000毫秒
 	private timeInterval:number = 1/60 * 1000
 	// 在游戏暂停后，恢复的第一帧
@@ -38,9 +41,22 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 	/*设置监听*/
 	private setListeners() {
 		this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this)
-		this.touchEnabled = true
+
+		// this.touchEnabled = true
 		this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.touchStart,this)
 		this.addEventListener(egret.TouchEvent.TOUCH_END,this.touchEnd,this)
+		//通过事件的监听，可以让代码解耦合，不用在对象里保留对方的引用
+		this.heroPlane.addEventListener('setHP',this.setHP,this)
+		this.heroPlane.addEventListener('setScore',this.setScore,this)
+		//初始化分数和血量
+		this.heroPlane.dispatchHPEvent()
+		this.heroPlane.dispatchScoreEvent()
+	}
+	private setHP(event){
+		this.hp.text = event.data
+	}
+	private setScore(event){
+		this.score.text = event.data
 	}
 	public removeListener(){
 		this.touchEnabled = false
@@ -48,6 +64,8 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN,this.touchStart,this)
 		this.removeEventListener(egret.TouchEvent.TOUCH_END,this.touchEnd,this)
 		this.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.touchMove,this)
+		this.heroPlane.removeEventListener('setHP',this.setHP,this)
+		this.heroPlane.removeEventListener('setScore',this.setScore,this)
 	}
 	private touchStart(e:egret.TouchEvent){
 		this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.touchMove,this)

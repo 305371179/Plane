@@ -12,8 +12,10 @@ var HeroPlane = (function (_super) {
     __extends(HeroPlane, _super);
     function HeroPlane(name) {
         var _this = _super.call(this, name) || this;
+        _this.score = 0;
         _this.setScale(0.5);
         _this.flySpeed = 300;
+        _this.hp = 1000;
         return _this;
     }
     /*飞机的飞行*/
@@ -22,6 +24,18 @@ var HeroPlane = (function (_super) {
         egret.Tween.removeTweens(this);
         var tw = egret.Tween.get(this, {});
         tw.to({ x: x, y: y }, speedo * 1000, egret.Ease.sineOut);
+    };
+    /*派发血量改变事件*/
+    HeroPlane.prototype.dispatchHPEvent = function () {
+        var event = new egret.Event('setHP');
+        event.data = this.hp + '';
+        this.dispatchEvent(event);
+    };
+    /*派发分数改变事件*/
+    HeroPlane.prototype.dispatchScoreEvent = function () {
+        var event = new egret.Event('setScore');
+        event.data = this.score + '';
+        this.dispatchEvent(event);
     };
     return HeroPlane;
 }(BasePlane));
