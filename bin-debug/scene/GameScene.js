@@ -17,6 +17,7 @@ var GameScene = (function (_super) {
         _this.bgSpeed = 0.5;
         //记录上一帧的时间
         _this.timeOnEnterFrame = 0;
+        _this.lockTime = 100;
         return _this;
     }
     GameScene.prototype.partAdded = function (partName, instance) {
@@ -35,6 +36,41 @@ var GameScene = (function (_super) {
     /*设置监听*/
     GameScene.prototype.setListeners = function () {
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+        this.touchEnabled = true;
+        this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchStart, this);
+        this.addEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
+    };
+    GameScene.prototype.removeListener = function () {
+        this.touchEnabled = false;
+        this.removeEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchStart, this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+    };
+    GameScene.prototype.touchStart = function (e) {
+        this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+        this.heroPlane.fly(e.stageX, e.stageY);
+    };
+    /*控制手机滑动的频率，提高性能，节省电量*/
+    GameScene.prototype.setLockTimeout = function () {
+        if (this.lockTouchMove) {
+            return true;
+        }
+        this.lockTouchMove = true;
+        egret.clearTimeout(this.timeoutId);
+        this.timeoutId = egret.setTimeout(function () {
+            this.lockTouchMove = false;
+        }, this, this.lockTime);
+        return false;
+    };
+    GameScene.prototype.touchMove = function (e) {
+        if (this.setLockTimeout()) {
+            return;
+        }
+        this.heroPlane.fly(e.stageX, e.stageY);
+    };
+    GameScene.prototype.touchEnd = function (e) {
+        this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
     };
     GameScene.prototype.onEnterFrame = function () {
         /*获取每一帧的时间差，用时间间隔设置位移会更加平滑*/

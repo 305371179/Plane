@@ -13,8 +13,16 @@ var HeroPlane = (function (_super) {
     function HeroPlane(name) {
         var _this = _super.call(this, name) || this;
         _this.setScale(0.5);
+        _this.flySpeed = 300;
         return _this;
     }
+    /*飞机的飞行*/
+    HeroPlane.prototype.fly = function (x, y) {
+        var speedo = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2)) / this.flySpeed;
+        egret.Tween.removeTweens(this);
+        var tw = egret.Tween.get(this, {});
+        tw.to({ x: x, y: y }, speedo * 1000, egret.Ease.sineOut);
+    };
     return HeroPlane;
 }(BasePlane));
 __reflect(HeroPlane.prototype, "HeroPlane");

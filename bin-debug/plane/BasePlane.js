@@ -17,6 +17,8 @@ var BasePlane = (function (_super) {
         _this.hp = 10000;
         //攻击力
         _this.atk = 10;
+        //飞行速度
+        _this.flySpeed = 300;
         //爆炸粒子动画播放的时间
         _this.explodeTime = 1000;
         //受攻击粒子动画播放的时间
@@ -58,7 +60,7 @@ var BasePlane = (function (_super) {
         this.y = y;
     };
     /*飞行*/
-    BasePlane.prototype.fly = function () {
+    BasePlane.prototype.fly = function (x, y) {
     };
     /*受到子弹攻击，遭受伤害*/
     BasePlane.prototype.hurt = function () {

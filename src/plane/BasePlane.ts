@@ -4,6 +4,8 @@ class BasePlane extends BaseObject{
 	public hp:number = 10000;
 	//攻击力
 	public atk:number = 10;
+	//飞行速度
+	protected flySpeed:number = 300
 	//爆炸粒子动画播放的时间
 	public explodeTime:number = 1000
 	//受攻击粒子动画播放的时间
@@ -44,8 +46,8 @@ class BasePlane extends BaseObject{
 		this.y = y
 	}
 	/*飞行*/
-	public fly(){
-
+	public fly(x:number, y:number){
+		
 	}
 	/*受到子弹攻击，遭受伤害*/
 	protected hurt(){
