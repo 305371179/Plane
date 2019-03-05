@@ -25,16 +25,37 @@ class EnemyContainer extends egret.Sprite{
 		this.appear(enemy)
 		this.addEnemy(enemy)
 	}
-	public moveAndShoot(bulletContainer:BulletContainer, time:number){
+	public moveAndShoot(heroPlane:HeroPlane,bulletContainer:BulletContainer, time:number){
 		for(let i = this.enemies.length-1;i >= 0;i--){
 			let enemy = this.enemies[i]
 			enemy.move(time)
 			enemy.shoot(bulletContainer, time)
+			if(enemy.hitCheck(heroPlane,80)){
+				this.destroy(i)
+				heroPlane.hurt(enemy)
+				console.log(666666)
+				continue
+			}
 			//子弹超出了屏幕，就销毁
 			if(!enemy.validate()){
 				this.destroy(i)
 			}
 		}
+	}
+	public hitCheck(bullet:BaseBullet):BaseEnemy{
+		for(let i = this.enemies.length - 1; i >= 0; i--){
+			const enemy = this.enemies[i]
+			//当飞机还在屏幕外面，就不做碰撞检测
+			if(enemy.y< 0)continue
+			if(bullet.hitCheck(enemy)){
+				this.destroy(i)
+				// this.gameScene.scoreNumber = enemy.score
+				// enemy.hurm(bullet)
+				// enemy.explode()
+				return enemy
+			}
+		}
+		return null
 	}
 	private addEnemy(enemy:BaseEnemy){
 		this.enemies.push(enemy)

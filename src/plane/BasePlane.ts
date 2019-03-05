@@ -1,5 +1,7 @@
 /*飞机的基类，提供通用的方法和属性*/
 class BasePlane extends BaseObject{
+	//飞机的分数值
+	public score:number = 0;
 	//血量
 	protected hp:number = 10000;
 	//攻击力
@@ -76,7 +78,7 @@ class BasePlane extends BaseObject{
 		
 	// }
 	/*受到子弹攻击，遭受伤害*/
-	protected hurt(){
+	public hurt(target:BasePlane){
 
 	}
 	/*受到撞击，遭受伤害*/

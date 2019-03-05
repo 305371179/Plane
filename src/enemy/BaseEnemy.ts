@@ -1,4 +1,6 @@
 class BaseEnemy extends BasePlane{
+	//撞击主角所造成的爆炸伤害
+	public expoldeAtk:number = 20
 	public constructor(name:string) {
 		super(name)
 	}
@@ -8,6 +10,7 @@ class BaseEnemy extends BasePlane{
 		this.flySpeed = 0.1 + Math.random() * 0.2
 		this.bulletSpeed = this.flySpeed + 0.3 * Math.random() +0.1
 		this.shootInterval = Math.random() * 500 + 500
+		this.score = 1
 		this.bulletPositions = [
 			{x: -20,y: 20},
 			{x: 20,y: 20}

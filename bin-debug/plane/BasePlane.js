@@ -13,6 +13,8 @@ var BasePlane = (function (_super) {
     __extends(BasePlane, _super);
     function BasePlane(name) {
         var _this = _super.call(this, name) || this;
+        //飞机的分数值
+        _this.score = 0;
         //血量
         _this.hp = 10000;
         //攻击力
@@ -86,7 +88,7 @@ var BasePlane = (function (_super) {
     // public fly(x:number, y:number){
     // }
     /*受到子弹攻击，遭受伤害*/
-    BasePlane.prototype.hurt = function () {
+    BasePlane.prototype.hurt = function (target) {
     };
     /*受到撞击，遭受伤害*/
     BasePlane.prototype.impact = function () {

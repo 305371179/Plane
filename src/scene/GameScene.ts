@@ -123,11 +123,11 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		this.scrollBg(pass)
 		this.heroPlane.shoot(this.bulletContainer, pass)
 		//统一控制子弹的移动
-		this.bulletContainer.move(pass)
+		this.bulletContainer.move(this.heroPlane, this.enemyContainer, pass)
 		//生成敌机
 		this.enemyContainer.createEnemy(pass)
 		//统一敌机的移动和发射子弹
-		this.enemyContainer.moveAndShoot(this.bulletContainer, pass)
+		this.enemyContainer.moveAndShoot(this.heroPlane, this.bulletContainer, pass)
 		// //统一敌机发射子弹
 		// this.enemyContainer.shoot(this.bulletContainer, pass)
 	}

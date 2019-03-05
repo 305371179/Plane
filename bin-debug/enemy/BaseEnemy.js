@@ -11,7 +11,10 @@ r.prototype = e.prototype, t.prototype = new r();
 var BaseEnemy = (function (_super) {
     __extends(BaseEnemy, _super);
     function BaseEnemy(name) {
-        return _super.call(this, name) || this;
+        var _this = _super.call(this, name) || this;
+        //撞击主角所造成的爆炸伤害
+        _this.expoldeAtk = 20;
+        return _this;
     }
     BaseEnemy.prototype.init = function () {
         this.setScale(0.5);
@@ -19,6 +22,7 @@ var BaseEnemy = (function (_super) {
         this.flySpeed = 0.1 + Math.random() * 0.2;
         this.bulletSpeed = this.flySpeed + 0.3 * Math.random() + 0.1;
         this.shootInterval = Math.random() * 500 + 500;
+        this.score = 1;
         this.bulletPositions = [
             { x: -20, y: 20 },
             { x: 20, y: 20 }

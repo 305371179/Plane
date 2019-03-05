@@ -19,10 +19,26 @@ var BulletContainer = (function (_super) {
         this.bullets.push(bullet);
         this.addChild(bullet);
     };
-    BulletContainer.prototype.move = function (time) {
+    BulletContainer.prototype.move = function (heroPlane, enemiyContainer, time) {
         for (var i = this.bullets.length - 1; i >= 0; i--) {
             var bullet = this.bullets[i];
             bullet.move(time);
+            //子弹是主角飞机发射的，检查是否碰撞到敌机
+            if (bullet.owner === heroPlane) {
+                var enemy = enemiyContainer.hitCheck(bullet);
+                if (enemy) {
+                    heroPlane.dispatchScoreEvent(enemy.score);
+                    this.destroy(i);
+                    continue;
+                }
+            }
+            else {
+                if (bullet.hitCheck(heroPlane)) {
+                    heroPlane.hurt(bullet);
+                    this.destroy(i);
+                    continue;
+                }
+            }
             //子弹超出了屏幕，就销毁
             if (!bullet.validate()) {
                 this.destroy(i);
