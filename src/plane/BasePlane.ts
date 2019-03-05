@@ -17,10 +17,10 @@ class BasePlane extends BaseObject{
 	//子弹出现的位置
 	public bulletPositions:Array<Object> = []
 	//子弹飞行的速度
-	public bulletSpeed:number = 6
+	public bulletSpeed:number = 0.05
 	//子弹发射的频率
 	public shootInterval:number = 200
-	public shootTime:number = 0
+	public threshold:number = 0
 	public constructor(name:string) {
 		super(name)
 		this.init()
@@ -30,10 +30,10 @@ class BasePlane extends BaseObject{
 
 	}
 	//累计间隔时间,控制子弹发射的频率
-	public addShootTime(timeOnEnterFrame:number):boolean{
-		this.shootTime += timeOnEnterFrame
-		if(this.shootTime > this.shootInterval) {
-			this.shootTime = 0
+	public addShootTime(passOnEnterFrame:number):boolean{
+		this.threshold += passOnEnterFrame
+		if(this.threshold > this.shootInterval) {
+			this.threshold = 0
 			return true
 		}
 		return false
@@ -68,7 +68,7 @@ class BasePlane extends BaseObject{
 		this.y = y
 	}
 	/*发射子弹*/
-	public shoot(bulletContainer:BulletContainer,timeOnEnterFrame:number){
+	public shoot(bulletContainer:BulletContainer,passOnEnterFrame:number){
 
 	}
 	// /*飞行*/
@@ -95,5 +95,8 @@ class BasePlane extends BaseObject{
 		if(this.parent){
 			this.parent.removeChild(this)
 		}
+	}
+	/*飞机移动*/
+	public move(time:number){
 	}
 }

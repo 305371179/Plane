@@ -2,13 +2,14 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 	//分数和血量的显示
 	private hp:eui.BitmapLabel;
 	private score:eui.BitmapLabel;
+	private group:eui.Group;
 	// 正常情况下，60fps的时间是1/60 * 1000毫秒
 	private timeInterval:number = 1/60 * 1000
 	// 在游戏暂停后，恢复的第一帧
 	/*背景滚动相关属性*/
 	private bg1:eui.Image;
 	private bg2:eui.Image;
-	private bgSpeed:number = 0.5;
+	private bgSpeed:number = 0.3;
 	//记录上一帧的时间
 	private timeOnEnterFrame:number = 0;
 	// 玩家飞机
@@ -19,6 +20,8 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 	public timeoutId: number;
 	//子弹容器
 	public bulletContainer:BulletContainer;
+	//敌机容器
+	public enemyContainer:EnemyContainer;
 	public constructor() {
 		super();
 	}
@@ -37,11 +40,15 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 	}
 	private init() {
 		this.bulletContainer = new BulletContainer()
+		this.enemyContainer = new EnemyContainer()
 		this.heroPlane = new HeroPlane('hero_png')
 		this.heroPlane.appear(Global.stage.stageWidth/2, Global.stage.stageHeight * 2/3)
 
 		this.addChild(this.bulletContainer)
 		this.addChild(this.heroPlane)
+		this.addChild(this.enemyContainer)
+
+		this.setChildIndex(this.group,this.numChildren-1)
 	}
 	/*设置监听*/
 	private setListeners() {
@@ -76,7 +83,7 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 
 	private touchStart(e:egret.TouchEvent){
 		this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.touchMove,this)
-		this.heroPlane.move(e.stageX,e.stageY)
+		this.heroPlane.fly(e.stageX,e.stageY)
 	}
 
 	/*控制手机滑动的频率，提高性能，节省电量*/
@@ -96,7 +103,7 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		if(this.setLockTimeout()){
 			return
 		}
-		this.heroPlane.move(e.stageX,e.stageY)
+		this.heroPlane.fly(e.stageX,e.stageY)
 	}
 
 	private touchEnd(e:egret.TouchEvent){
@@ -115,7 +122,14 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		}
 		this.scrollBg(pass)
 		this.heroPlane.shoot(this.bulletContainer, pass)
-		this.bulletContainer.move()
+		//统一控制子弹的移动
+		this.bulletContainer.move(pass)
+		//生成敌机
+		this.enemyContainer.createEnemy(pass)
+		//统一敌机的移动和发射子弹
+		this.enemyContainer.moveAndShoot(this.bulletContainer, pass)
+		// //统一敌机发射子弹
+		// this.enemyContainer.shoot(this.bulletContainer, pass)
 	}
 
 	/*滚动背景*/

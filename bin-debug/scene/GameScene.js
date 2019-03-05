@@ -14,7 +14,7 @@ var GameScene = (function (_super) {
         var _this = _super.call(this) || this;
         // 正常情况下，60fps的时间是1/60 * 1000毫秒
         _this.timeInterval = 1 / 60 * 1000;
-        _this.bgSpeed = 0.5;
+        _this.bgSpeed = 0.3;
         //记录上一帧的时间
         _this.timeOnEnterFrame = 0;
         _this.lockTime = 100;
@@ -30,10 +30,13 @@ var GameScene = (function (_super) {
     };
     GameScene.prototype.init = function () {
         this.bulletContainer = new BulletContainer();
+        this.enemyContainer = new EnemyContainer();
         this.heroPlane = new HeroPlane('hero_png');
         this.heroPlane.appear(Global.stage.stageWidth / 2, Global.stage.stageHeight * 2 / 3);
         this.addChild(this.bulletContainer);
         this.addChild(this.heroPlane);
+        this.addChild(this.enemyContainer);
+        this.setChildIndex(this.group, this.numChildren - 1);
     };
     /*设置监听*/
     GameScene.prototype.setListeners = function () {
@@ -64,7 +67,7 @@ var GameScene = (function (_super) {
     };
     GameScene.prototype.touchStart = function (e) {
         this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
-        this.heroPlane.move(e.stageX, e.stageY);
+        this.heroPlane.fly(e.stageX, e.stageY);
     };
     /*控制手机滑动的频率，提高性能，节省电量*/
     GameScene.prototype.setLockTimeout = function () {
@@ -82,7 +85,7 @@ var GameScene = (function (_super) {
         if (this.setLockTimeout()) {
             return;
         }
-        this.heroPlane.move(e.stageX, e.stageY);
+        this.heroPlane.fly(e.stageX, e.stageY);
     };
     GameScene.prototype.touchEnd = function (e) {
         this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
@@ -99,7 +102,14 @@ var GameScene = (function (_super) {
         }
         this.scrollBg(pass);
         this.heroPlane.shoot(this.bulletContainer, pass);
-        this.bulletContainer.move();
+        //统一控制子弹的移动
+        this.bulletContainer.move(pass);
+        //生成敌机
+        this.enemyContainer.createEnemy(pass);
+        //统一敌机的移动和发射子弹
+        this.enemyContainer.moveAndShoot(this.bulletContainer, pass);
+        // //统一敌机发射子弹
+        // this.enemyContainer.shoot(this.bulletContainer, pass)
     };
     /*滚动背景*/
     GameScene.prototype.scrollBg = function (pass) {

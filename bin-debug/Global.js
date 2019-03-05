@@ -14,6 +14,14 @@ var Global = (function () {
         this.stage.removeChildren();
         this.stage.addChild(scene);
     };
+    Global.pause = function () {
+        // egret.Tween.removeTweens(Global.plane)
+        var child = this.stage.getChildAt(this.stage.numChildren - 1);
+        if (child && child instanceof GameScene) {
+            egret.Tween.removeTweens(child.heroPlane);
+            // egret.Tween.removeAllTweens()
+        }
+    };
     return Global;
 }());
 __reflect(Global.prototype, "Global");

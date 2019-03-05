@@ -49,10 +49,12 @@ class Main extends egret.DisplayObjectContainer {
 
         egret.lifecycle.onPause = () => {
             egret.ticker.pause();
+            Global.pause()
         }
 
         egret.lifecycle.onResume = () => {
             egret.ticker.resume();
+            // Global.resume()
         }
         //inject the custom material parser
         //注入自定义的素材解析器

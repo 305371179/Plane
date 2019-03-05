@@ -88,9 +88,11 @@ var Main = (function (_super) {
         });
         egret.lifecycle.onPause = function () {
             egret.ticker.pause();
+            Global.pause();
         };
         egret.lifecycle.onResume = function () {
             egret.ticker.resume();
+            // Global.resume()
         };
         //inject the custom material parser
         //注入自定义的素材解析器

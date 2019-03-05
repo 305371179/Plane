@@ -30,10 +30,10 @@ var BasePlane = (function (_super) {
         //子弹出现的位置
         _this.bulletPositions = [];
         //子弹飞行的速度
-        _this.bulletSpeed = 6;
+        _this.bulletSpeed = 0.05;
         //子弹发射的频率
         _this.shootInterval = 200;
-        _this.shootTime = 0;
+        _this.threshold = 0;
         _this.init();
         return _this;
     }
@@ -41,10 +41,10 @@ var BasePlane = (function (_super) {
     BasePlane.prototype.init = function () {
     };
     //累计间隔时间,控制子弹发射的频率
-    BasePlane.prototype.addShootTime = function (timeOnEnterFrame) {
-        this.shootTime += timeOnEnterFrame;
-        if (this.shootTime > this.shootInterval) {
-            this.shootTime = 0;
+    BasePlane.prototype.addShootTime = function (passOnEnterFrame) {
+        this.threshold += passOnEnterFrame;
+        if (this.threshold > this.shootInterval) {
+            this.threshold = 0;
             return true;
         }
         return false;
@@ -80,7 +80,7 @@ var BasePlane = (function (_super) {
         this.y = y;
     };
     /*发射子弹*/
-    BasePlane.prototype.shoot = function (bulletContainer, timeOnEnterFrame) {
+    BasePlane.prototype.shoot = function (bulletContainer, passOnEnterFrame) {
     };
     // /*飞行*/
     // public fly(x:number, y:number){
@@ -103,6 +103,9 @@ var BasePlane = (function (_super) {
         if (this.parent) {
             this.parent.removeChild(this);
         }
+    };
+    /*飞机移动*/
+    BasePlane.prototype.move = function (time) {
     };
     return BasePlane;
 }(BaseObject));
