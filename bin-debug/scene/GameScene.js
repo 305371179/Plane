@@ -29,14 +29,15 @@ var GameScene = (function (_super) {
         this.setListeners();
     };
     GameScene.prototype.init = function () {
+        this.bulletContainer = new BulletContainer();
         this.heroPlane = new HeroPlane('hero_png');
         this.heroPlane.appear(Global.stage.stageWidth / 2, Global.stage.stageHeight * 2 / 3);
+        this.addChild(this.bulletContainer);
         this.addChild(this.heroPlane);
     };
     /*设置监听*/
     GameScene.prototype.setListeners = function () {
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
-        // this.touchEnabled = true
         this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchStart, this);
         this.addEventListener(egret.TouchEvent.TOUCH_END, this.touchEnd, this);
         //通过事件的监听，可以让代码解耦合，不用在对象里保留对方的引用
@@ -63,7 +64,7 @@ var GameScene = (function (_super) {
     };
     GameScene.prototype.touchStart = function (e) {
         this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
-        this.heroPlane.fly(e.stageX, e.stageY);
+        this.heroPlane.move(e.stageX, e.stageY);
     };
     /*控制手机滑动的频率，提高性能，节省电量*/
     GameScene.prototype.setLockTimeout = function () {
@@ -81,7 +82,7 @@ var GameScene = (function (_super) {
         if (this.setLockTimeout()) {
             return;
         }
-        this.heroPlane.fly(e.stageX, e.stageY);
+        this.heroPlane.move(e.stageX, e.stageY);
     };
     GameScene.prototype.touchEnd = function (e) {
         this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
@@ -97,15 +98,17 @@ var GameScene = (function (_super) {
             return;
         }
         this.scrollBg(pass);
+        this.heroPlane.shoot(this.bulletContainer, pass);
+        this.bulletContainer.move();
     };
     /*滚动背景*/
     GameScene.prototype.scrollBg = function (pass) {
         var delY = this.bgSpeed * pass;
         this.bg1.y += delY;
         this.bg2.y += delY;
-        if (this.bg1.y > Global.stage.stageHeight) {
-            this.bg1.y = 0;
-            this.bg2.y = -Global.stage.stageHeight;
+        if (this.bg1.y > this.bg1.height) {
+            this.bg1.y = this.bg2.y;
+            this.bg2.y = this.bg1.y - this.bg2.height;
         }
     };
     return GameScene;

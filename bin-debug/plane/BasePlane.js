@@ -27,8 +27,28 @@ var BasePlane = (function (_super) {
         _this.isExplode = false;
         //是否销毁的状态
         _this.isDie = false;
+        //子弹出现的位置
+        _this.bulletPositions = [];
+        //子弹飞行的速度
+        _this.bulletSpeed = 6;
+        //子弹发射的频率
+        _this.shootInterval = 200;
+        _this.shootTime = 0;
+        _this.init();
         return _this;
     }
+    /*初始化*/
+    BasePlane.prototype.init = function () {
+    };
+    //累计间隔时间,控制子弹发射的频率
+    BasePlane.prototype.addShootTime = function (timeOnEnterFrame) {
+        this.shootTime += timeOnEnterFrame;
+        if (this.shootTime > this.shootInterval) {
+            this.shootTime = 0;
+            return true;
+        }
+        return false;
+    };
     /*
     碰撞检测
     通过比较飞机直接的直线距离和给定值length大小，来判断是否碰撞
@@ -59,9 +79,12 @@ var BasePlane = (function (_super) {
         this.x = x;
         this.y = y;
     };
-    /*飞行*/
-    BasePlane.prototype.fly = function (x, y) {
+    /*发射子弹*/
+    BasePlane.prototype.shoot = function (bulletContainer, timeOnEnterFrame) {
     };
+    // /*飞行*/
+    // public fly(x:number, y:number){
+    // }
     /*受到子弹攻击，遭受伤害*/
     BasePlane.prototype.hurt = function () {
     };
@@ -70,6 +93,16 @@ var BasePlane = (function (_super) {
     };
     /*血量耗尽，触发爆炸*/
     BasePlane.prototype.explode = function () {
+    };
+    /*判断飞机是否在屏幕外面了*/
+    BasePlane.prototype.validate = function () {
+        return !(this.x < -100 || this.x > Global.stage.stageWidth + 100 || this.y < -100 || this.y > Global.stage.stageHeight + 100);
+    };
+    /*销毁对象*/
+    BasePlane.prototype.destroy = function () {
+        if (this.parent) {
+            this.parent.removeChild(this);
+        }
     };
     return BasePlane;
 }(BaseObject));

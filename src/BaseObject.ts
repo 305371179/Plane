@@ -9,6 +9,7 @@ class BaseObject extends egret.Sprite{
 		// 设置锚点为图片中心点
 		this.setCenter()
 	}
+	
 	private setCenter(){
 		this.anchorOffsetX =this.bitmap.width/2
 		this.anchorOffsetY = this.bitmap.height/2

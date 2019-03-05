@@ -17,6 +17,8 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 	public lockTouchMove: boolean;
 	public lockTime: number = 100;
 	public timeoutId: number;
+	//子弹容器
+	public bulletContainer:BulletContainer;
 	public constructor() {
 		super();
 	}
@@ -34,15 +36,16 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		this.setListeners()
 	}
 	private init() {
+		this.bulletContainer = new BulletContainer()
 		this.heroPlane = new HeroPlane('hero_png')
 		this.heroPlane.appear(Global.stage.stageWidth/2, Global.stage.stageHeight * 2/3)
+
+		this.addChild(this.bulletContainer)
 		this.addChild(this.heroPlane)
 	}
 	/*设置监听*/
 	private setListeners() {
 		this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this)
-
-		// this.touchEnabled = true
 		this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.touchStart,this)
 		this.addEventListener(egret.TouchEvent.TOUCH_END,this.touchEnd,this)
 		//通过事件的监听，可以让代码解耦合，不用在对象里保留对方的引用
@@ -52,12 +55,15 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		this.heroPlane.dispatchHPEvent()
 		this.heroPlane.dispatchScoreEvent()
 	}
+
 	private setHP(event){
 		this.hp.text = event.data
 	}
+
 	private setScore(event){
 		this.score.text = event.data
 	}
+
 	public removeListener(){
 		this.touchEnabled = false
 		this.removeEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this)
@@ -67,10 +73,12 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		this.heroPlane.removeEventListener('setHP',this.setHP,this)
 		this.heroPlane.removeEventListener('setScore',this.setScore,this)
 	}
+
 	private touchStart(e:egret.TouchEvent){
 		this.addEventListener(egret.TouchEvent.TOUCH_MOVE,this.touchMove,this)
-		this.heroPlane.fly(e.stageX,e.stageY)
+		this.heroPlane.move(e.stageX,e.stageY)
 	}
+
 	/*控制手机滑动的频率，提高性能，节省电量*/
 	private setLockTimeout():boolean{
 		if(this.lockTouchMove){
@@ -83,12 +91,14 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		},this,this.lockTime)
 		return false
 	}
+
 	private touchMove(e:egret.TouchEvent){
 		if(this.setLockTimeout()){
 			return
 		}
-		this.heroPlane.fly(e.stageX,e.stageY)
+		this.heroPlane.move(e.stageX,e.stageY)
 	}
+
 	private touchEnd(e:egret.TouchEvent){
 		this.removeEventListener(egret.TouchEvent.TOUCH_MOVE,this.touchMove,this)
 	}
@@ -104,15 +114,18 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 			return
 		}
 		this.scrollBg(pass)
+		this.heroPlane.shoot(this.bulletContainer, pass)
+		this.bulletContainer.move()
 	}
+
 	/*滚动背景*/
 	private scrollBg(pass:number){
 		const delY = this.bgSpeed * pass
 		this.bg1.y += delY
 		this.bg2.y += delY
-		if(this.bg1.y > Global.stage.stageHeight){
-			this.bg1.y = 0
-			this.bg2.y = - Global.stage.stageHeight
+		if(this.bg1.y > this.bg1.height){
+			this.bg1.y = this.bg2.y
+			this.bg2.y = this.bg1.y - this.bg2.height
 		}
 	}
 }
