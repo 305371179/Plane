@@ -126,5 +126,6 @@ class BasePlane extends BaseObject{
 	}
 	/*飞机移动*/
 	public move(time:number){
+		this.y += this.flySpeed * time
 	}
 }

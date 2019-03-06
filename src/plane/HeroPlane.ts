@@ -5,7 +5,7 @@ class HeroPlane extends BasePlane {
 	public init(){
 		this.setScale(0.5)
 		this.flySpeed =300 
-		this.hp = 10;
+		this.hp = 10000;
 		this.bulletSpeed = -0.6
 		this.bulletPositions = [
 			{x: -20,y: 20},
@@ -19,6 +19,10 @@ class HeroPlane extends BasePlane {
 		egret.Tween.removeTweens(this)
 		var tw = egret.Tween.get( this, {} );
 		tw.to( {x,y}, speedo*1000, egret.Ease.sineOut)
+	}
+	/*增加血量*/
+	public addBlood(blood:number = 0){
+		this.dispatchHPEvent(-blood)
 	}
 	/*派发血量改变事件*/
 	public dispatchHPEvent(atk:number = 0){
@@ -41,6 +45,7 @@ class HeroPlane extends BasePlane {
 	}
 	/*子弹发射*/
 	public shoot(bulletContainer:BulletContainer, time:number){
+		if(this.isExplode)return
 		if(!this.addShootTime(time)){
 			return
 		}
@@ -48,7 +53,6 @@ class HeroPlane extends BasePlane {
 			let bullet = new BaseBullet('bullet_png', this)
 			bullet.show(position)
 			bulletContainer.addBullet(bullet)
-			
 		})
 	}
 	public hurt(target:BasePlane){

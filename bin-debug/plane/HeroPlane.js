@@ -16,7 +16,7 @@ var HeroPlane = (function (_super) {
     HeroPlane.prototype.init = function () {
         this.setScale(0.5);
         this.flySpeed = 300;
-        this.hp = 10;
+        this.hp = 10000;
         this.bulletSpeed = -0.6;
         this.bulletPositions = [
             { x: -20, y: 20 },
@@ -30,6 +30,11 @@ var HeroPlane = (function (_super) {
         egret.Tween.removeTweens(this);
         var tw = egret.Tween.get(this, {});
         tw.to({ x: x, y: y }, speedo * 1000, egret.Ease.sineOut);
+    };
+    /*增加血量*/
+    HeroPlane.prototype.addBlood = function (blood) {
+        if (blood === void 0) { blood = 0; }
+        this.dispatchHPEvent(-blood);
     };
     /*派发血量改变事件*/
     HeroPlane.prototype.dispatchHPEvent = function (atk) {
@@ -56,6 +61,8 @@ var HeroPlane = (function (_super) {
     /*子弹发射*/
     HeroPlane.prototype.shoot = function (bulletContainer, time) {
         var _this = this;
+        if (this.isExplode)
+            return;
         if (!this.addShootTime(time)) {
             return;
         }

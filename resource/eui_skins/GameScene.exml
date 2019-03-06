@@ -5,7 +5,7 @@
 	<e:Image id="bg2" source="img_bg_level_2_jpg" x="0" y="-768"/>
 	<e:Group id="group" width="100%" height="42" x="0" y="10">
 		<e:BitmapLabel width="49" height="42" x="14" y="0" font="font_fnt" text="HP" anchorOffsetX="0"/>
-		<e:BitmapLabel id="hp" width="130" height="42" x="64" y="0" font="font_fnt" text="10000" anchorOffsetX="0"/>
+		<e:BitmapLabel id="hp" width="208" height="42" x="64" y="0" font="font_fnt" text="10000" anchorOffsetX="0"/>
 		<e:BitmapLabel width="102" height="42" x="280" y="0" font="font_fnt" text="SCORE" anchorOffsetX="0"/>
 		<e:BitmapLabel id="score" height="42" y="0" font="font_fnt" text="0" anchorOffsetX="0" right="1" horizontalCenter="189"/>
 	</e:Group>

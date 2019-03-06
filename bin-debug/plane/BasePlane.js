@@ -139,6 +139,7 @@ var BasePlane = (function (_super) {
     };
     /*飞机移动*/
     BasePlane.prototype.move = function (time) {
+        this.y += this.flySpeed * time;
     };
     return BasePlane;
 }(BaseObject));

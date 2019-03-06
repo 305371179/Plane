@@ -32,11 +32,13 @@ var GameScene = (function (_super) {
     GameScene.prototype.init = function () {
         this.bulletContainer = new BulletContainer();
         this.enemyContainer = new EnemyContainer();
+        this.itemContainer = new ItemContainer();
         this.heroPlane = new HeroPlane('hero_png');
         this.heroPlane.appear(Global.stage.stageWidth / 2, Global.stage.stageHeight * 2 / 3);
         this.addChild(this.bulletContainer);
         this.addChild(this.heroPlane);
         this.addChild(this.enemyContainer);
+        this.addChild(this.itemContainer);
         this.setChildIndex(this.group, this.numChildren - 1);
     };
     /*设置监听*/
@@ -110,6 +112,10 @@ var GameScene = (function (_super) {
         this.enemyContainer.createEnemy(pass);
         //统一敌机的移动和发射子弹
         this.enemyContainer.moveAndShoot(this.heroPlane, this.bulletContainer, pass);
+        //创建物品
+        this.itemContainer.createItem(pass);
+        //物品统一移动
+        this.itemContainer.move(this.heroPlane, pass);
     };
     /*滚动背景*/
     GameScene.prototype.scrollBg = function (pass) {
