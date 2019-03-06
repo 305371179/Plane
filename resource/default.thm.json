@@ -12,11 +12,13 @@
 		"eui.VSlider": "resource/eui_skins/VSliderSkin.exml",
 		"eui.ItemRenderer": "resource/eui_skins/ItemRendererSkin.exml",
 		"MenuScene": "resource/eui_skins/MenuScene.exml",
-		"GameScene": "resource/eui_skins/GameScene.exml"
+		"GameScene": "resource/eui_skins/GameScene.exml",
+		"GameOverScene": "resource/eui_skins/GameOverScene.exml"
 	},
 	"autoGenerateExmlsList": true,
 	"exmls": [
 		"resource/eui_skins/ButtonSkin.exml",
+		"resource/eui_skins/GameOverScene.exml",
 		"resource/eui_skins/GameScene.exml",
 		"resource/eui_skins/MenuScene.exml"
 	],

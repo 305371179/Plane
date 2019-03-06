@@ -21,10 +21,6 @@ var BasePlane = (function (_super) {
         _this.atk = 10;
         //飞行速度
         _this.flySpeed = 300;
-        //爆炸粒子动画播放的时间
-        _this.explodeTime = 1000;
-        //受攻击粒子动画播放的时间
-        _this.hurtTime = 500;
         //是否爆炸的状态
         _this.isExplode = false;
         //是否销毁的状态
@@ -58,7 +54,7 @@ var BasePlane = (function (_super) {
     BasePlane.prototype.hitCheck = function (target, length) {
         if (length === void 0) { length = 50; }
         // 如果对象已经爆炸了，就无需继续检测
-        if (target.isExplode)
+        if (this.isExplode || target.isExplode)
             return false;
         var x1 = this.x;
         var y1 = this.y;
@@ -89,6 +85,41 @@ var BasePlane = (function (_super) {
     // }
     /*受到子弹攻击，遭受伤害*/
     BasePlane.prototype.hurt = function (target) {
+        this.playHurtParticle(target);
+    };
+    BasePlane.prototype.playHurtParticle = function (target, callback) {
+        var _this = this;
+        if (target === void 0) { target = null; }
+        if (callback === void 0) { callback = null; }
+        var config = 'boom_hurt_json';
+        if (!target) {
+            config = 'boom_explode_json';
+        }
+        var particle = new BaseParticle('boom_yellow_png', config);
+        if (target) {
+            var x = target.x;
+            var y = target.y;
+            if (target instanceof BaseEnemy) {
+                x = this.x + target.x >> 1;
+                y = this.y + target.y >> 1;
+            }
+            var point = this.globalToLocal(x, y);
+            particle.x = point.x;
+            particle.y = point.y;
+        }
+        else {
+            particle.x = this.anchorOffsetX;
+            particle.y = this.anchorOffsetY;
+        }
+        particle.start(500);
+        this.addChild(particle);
+        egret.setTimeout(function () {
+            _this.removeChild(particle);
+            if (!target) {
+                _this.isDie = true;
+                callback && callback();
+            }
+        }, this, 1000);
     };
     /*受到撞击，遭受伤害*/
     BasePlane.prototype.impact = function () {

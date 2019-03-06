@@ -15,12 +15,19 @@ var Global = (function () {
         this.stage.addChild(scene);
     };
     Global.pause = function () {
-        // egret.Tween.removeTweens(Global.plane)
         var child = this.stage.getChildAt(this.stage.numChildren - 1);
         if (child && child instanceof GameScene) {
-            egret.Tween.removeTweens(child.heroPlane);
-            // egret.Tween.removeAllTweens()
+            egret.Tween.pauseTweens(child.heroPlane);
         }
+    };
+    Global.resume = function () {
+        var _this = this;
+        egret.setTimeout(function () {
+            var child = _this.stage.getChildAt(_this.stage.numChildren - 1);
+            if (child && child instanceof GameScene) {
+                egret.Tween.resumeTweens(child.heroPlane);
+            }
+        }, this, 0);
     };
     return Global;
 }());

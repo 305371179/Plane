@@ -12,18 +12,18 @@ class Global {
 		this.stage.addChild(scene)
 	}
 	public static pause(){
-		// egret.Tween.removeTweens(Global.plane)
 		const child = this.stage.getChildAt(this.stage.numChildren-1)
 		if(child && child instanceof GameScene) {
-			egret.Tween.removeTweens(child.heroPlane)
-			// egret.Tween.removeAllTweens()
+			egret.Tween.pauseTweens(child.heroPlane)
 		}
 	}
-	// public static resume() {
-	// 	egret.Tween.resumeTweens(Global.plane)
-	// 	const child = this.stage.getChildAt(this.stage.numChildren-1)
-	// 	if(child && child instanceof GameScene) {
-	// 		egret.Tween.resumeTweens(child.heroPlane)
-	// 	}
-	// }
+	public static resume() {
+		egret.setTimeout(()=>{
+			const child = this.stage.getChildAt(this.stage.numChildren-1)
+			if(child && child instanceof GameScene) {
+				egret.Tween.resumeTweens(child.heroPlane)
+			}
+		},this,0)
+		
+	}
 }

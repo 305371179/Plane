@@ -18,6 +18,7 @@ var GameScene = (function (_super) {
         //记录上一帧的时间
         _this.timeOnEnterFrame = 0;
         _this.lockTime = 100;
+        Sound.play();
         return _this;
     }
     GameScene.prototype.partAdded = function (partName, instance) {
@@ -46,12 +47,13 @@ var GameScene = (function (_super) {
         //通过事件的监听，可以让代码解耦合，不用在对象里保留对方的引用
         this.heroPlane.addEventListener('setHP', this.setHP, this);
         this.heroPlane.addEventListener('setScore', this.setScore, this);
+        this.heroPlane.addEventListener('gameOver', this.gameOver, this);
         //初始化分数和血量
         this.heroPlane.dispatchHPEvent();
         this.heroPlane.dispatchScoreEvent();
     };
     GameScene.prototype.setHP = function (event) {
-        this.hp.text = event.data;
+        this.hp.text = event.data + '';
     };
     GameScene.prototype.setScore = function (event) {
         this.score.text = event.data;
@@ -108,8 +110,6 @@ var GameScene = (function (_super) {
         this.enemyContainer.createEnemy(pass);
         //统一敌机的移动和发射子弹
         this.enemyContainer.moveAndShoot(this.heroPlane, this.bulletContainer, pass);
-        // //统一敌机发射子弹
-        // this.enemyContainer.shoot(this.bulletContainer, pass)
     };
     /*滚动背景*/
     GameScene.prototype.scrollBg = function (pass) {
@@ -120,6 +120,12 @@ var GameScene = (function (_super) {
             this.bg1.y = this.bg2.y;
             this.bg2.y = this.bg1.y - this.bg2.height;
         }
+    };
+    GameScene.prototype.gameOver = function () {
+        this.removeListener();
+        egret.Tween.removeTweens(this.heroPlane);
+        Sound.close();
+        Global.addScene(new GameOverScene(this.score.text));
     };
     return GameScene;
 }(eui.Component));

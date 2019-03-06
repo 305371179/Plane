@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,boom_black_json,boom_black_png,boom_red_json,boom_red_png,boom_red_png_json,boom_red_png_png,boom_white_json,boom_white_png,boom_yellow_json,boom_yellow_png,bullet_png,bullet_ball_png,bullet_basic_png,bullet_comet_png,bullet_dart_png,bullet_missile_png,bullet_navigate_png,bullet_shell_png,bullet_ultra_png,font_fnt,font_png,bigBang_png,blood_png,missile_png,powerBar_png,shield_png,shine_png,ultra_png,laser1_png,laser2_png,laser3_png,laser4_png,laser5_png,laser6_png,laser7_png,laser8_png,StarWar_mp3,bullet_mp3,img_bg_level_1_jpg,img_bg_level_2_jpg,img_bg_level_3_jpg,img_bg_level_4_jpg,img_bg_level_5_jpg,boom_black2_png,boom_black2_json,boom_yellow2_png,boom_yellow2_json,button_down_png,button_up_png,alpha_png,beta_png,gamma_png,hero_png,jason_png",
+			"keys": "description_json,boom_yellow_png,bullet_png,bullet_ball_png,bullet_basic_png,bullet_comet_png,bullet_dart_png,bullet_missile_png,bullet_navigate_png,bullet_shell_png,bullet_ultra_png,font_fnt,font_png,bigBang_png,blood_png,missile_png,powerBar_png,shield_png,shine_png,ultra_png,laser1_png,laser2_png,laser3_png,laser4_png,laser5_png,laser6_png,laser7_png,laser8_png,StarWar_mp3,bullet_mp3,img_bg_level_1_jpg,img_bg_level_2_jpg,img_bg_level_3_jpg,img_bg_level_4_jpg,img_bg_level_5_jpg,boom_black2_png,boom_black2_json,boom_yellow2_png,boom_yellow2_json,button_down_png,button_up_png,alpha_png,beta_png,gamma_png,hero_png,jason_png,boom_hurt_json,boom_explode_json,boom_hurt_png",
 			"name": "preload"
 		}
 	],
@@ -10,51 +10,6 @@
 			"name": "description_json",
 			"type": "json",
 			"url": "config/description.json"
-		},
-		{
-			"name": "boom_black_json",
-			"type": "json",
-			"url": "assets/boom/boom_black.json"
-		},
-		{
-			"name": "boom_black_png",
-			"type": "image",
-			"url": "assets/boom/boom_black.png"
-		},
-		{
-			"name": "boom_red_json",
-			"type": "json",
-			"url": "assets/boom/boom_red.json"
-		},
-		{
-			"name": "boom_red_png",
-			"type": "image",
-			"url": "assets/boom/boom_red.png"
-		},
-		{
-			"name": "boom_red_png_json",
-			"type": "json",
-			"url": "assets/boom/boom_red_png.json"
-		},
-		{
-			"name": "boom_red_png_png",
-			"type": "image",
-			"url": "assets/boom/boom_red_png.png"
-		},
-		{
-			"name": "boom_white_json",
-			"type": "json",
-			"url": "assets/boom/boom_white.json"
-		},
-		{
-			"name": "boom_white_png",
-			"type": "image",
-			"url": "assets/boom/boom_white.png"
-		},
-		{
-			"name": "boom_yellow_json",
-			"type": "json",
-			"url": "assets/boom/boom_yellow.json"
 		},
 		{
 			"name": "boom_yellow_png",
@@ -280,6 +235,21 @@
 			"name": "jason_png",
 			"type": "image",
 			"url": "assets/plane/jason.png"
+		},
+		{
+			"name": "boom_hurt_json",
+			"type": "json",
+			"url": "assets/boom/boom_hurt.json"
+		},
+		{
+			"name": "boom_explode_json",
+			"type": "json",
+			"url": "assets/boom/boom_explode.json"
+		},
+		{
+			"name": "boom_hurt_png",
+			"type": "image",
+			"url": "assets/boom/boom_hurt.png"
 		}
 	]
 }

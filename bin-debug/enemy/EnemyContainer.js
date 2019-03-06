@@ -41,11 +41,18 @@ var EnemyContainer = (function (_super) {
         for (var i = this.enemies.length - 1; i >= 0; i--) {
             var enemy = this.enemies[i];
             enemy.move(time);
+            if (enemy.isDie) {
+                this.destroy(i);
+                continue;
+            }
+            if (enemy.isExplode) {
+                continue;
+            }
             enemy.shoot(bulletContainer, time);
             if (enemy.hitCheck(heroPlane, 80)) {
-                this.destroy(i);
+                // this.destroy(i)
+                enemy.explode();
                 heroPlane.hurt(enemy);
-                console.log(666666);
                 continue;
             }
             //子弹超出了屏幕，就销毁
@@ -54,14 +61,18 @@ var EnemyContainer = (function (_super) {
             }
         }
     };
-    EnemyContainer.prototype.hitCheck = function (bullet) {
+    EnemyContainer.prototype.hitCheck = function (heroPlane, target) {
         for (var i = this.enemies.length - 1; i >= 0; i--) {
             var enemy = this.enemies[i];
             //当飞机还在屏幕外面，就不做碰撞检测
-            if (enemy.y < 0)
+            if (enemy.y < 0 || enemy.isExplode)
                 continue;
-            if (bullet.hitCheck(enemy)) {
-                this.destroy(i);
+            if (target.hitCheck(enemy)) {
+                // this.destroy(i)
+                var hp = enemy.hurt(target);
+                if (hp === 0) {
+                    heroPlane.dispatchScoreEvent(enemy.score);
+                }
                 // this.gameScene.scoreNumber = enemy.score
                 // enemy.hurm(bullet)
                 // enemy.explode()

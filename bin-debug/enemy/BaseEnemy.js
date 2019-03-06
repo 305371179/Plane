@@ -23,6 +23,7 @@ var BaseEnemy = (function (_super) {
         this.bulletSpeed = this.flySpeed + 0.3 * Math.random() + 0.1;
         this.shootInterval = Math.random() * 500 + 500;
         this.score = 1;
+        this.hp = 60;
         this.bulletPositions = [
             { x: -20, y: 20 },
             { x: 20, y: 20 }
@@ -44,6 +45,21 @@ var BaseEnemy = (function (_super) {
             bullet.show(position);
             bulletContainer.addBullet(bullet);
         });
+    };
+    BaseEnemy.prototype.hurt = function (target) {
+        if (this.isExplode)
+            return;
+        this.playHurtParticle(target);
+        this.hp -= target.atk;
+        if (this.hp <= 0) {
+            this.explode();
+        }
+        return this.hp;
+    };
+    BaseEnemy.prototype.explode = function () {
+        this.isExplode = true;
+        this.bitmap.visible = false;
+        this.playHurtParticle();
     };
     return BaseEnemy;
 }(BasePlane));

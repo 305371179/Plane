@@ -92,7 +92,7 @@ var Main = (function (_super) {
         };
         egret.lifecycle.onResume = function () {
             egret.ticker.resume();
-            // Global.resume()
+            Global.resume();
         };
         //inject the custom material parser
         //注入自定义的素材解析器
@@ -162,6 +162,7 @@ var Main = (function (_super) {
      */
     Main.prototype.createGameScene = function () {
         // Global.addScene(new MenuScene())
+        // Global.addScene(new GameOverScene())
         Global.addScene(new GameScene());
     };
     return Main;

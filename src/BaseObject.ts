@@ -1,7 +1,7 @@
 /*所有对象的基类，提供一些最通用的方法*/
 class BaseObject extends egret.Sprite{
 	//每个对象都有一张位图
-	private bitmap:egret.Bitmap;
+	protected bitmap:egret.Bitmap;
 	public constructor(name:string) {
 		super()
 		this.bitmap = this.createBitmapByName(name)

@@ -1,11 +1,14 @@
 class BulletContainer extends egret.Sprite{
 	public bullets:Array<BaseBullet> = [];
+	// private sound:egret.Sound;
 	public constructor() {
 		super()
+		// this.sound = RES.getRes('bullet_mp3')
 	}
 	public addBullet(bullet:BaseBullet){
 		this.bullets.push(bullet)
 		this.addChild(bullet)
+		// this.sound.play()
 	}
 	public move(heroPlane:HeroPlane, enemiyContainer:EnemyContainer, time:number){
 		for(let i = this.bullets.length-1;i >= 0;i--){
@@ -13,9 +16,9 @@ class BulletContainer extends egret.Sprite{
 			bullet.move(time)
 			//子弹是主角飞机发射的，检查是否碰撞到敌机
 			if(bullet.owner === heroPlane){
-				const enemy = enemiyContainer.hitCheck(bullet)
+				const enemy = enemiyContainer.hitCheck(heroPlane,bullet)
 				if(enemy){
-					heroPlane.dispatchScoreEvent(enemy.score)
+					// heroPlane.dispatchScoreEvent(enemy.score)
 					this.destroy(i)
 					continue
 				}

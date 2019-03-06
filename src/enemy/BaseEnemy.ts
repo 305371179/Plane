@@ -11,6 +11,7 @@ class BaseEnemy extends BasePlane{
 		this.bulletSpeed = this.flySpeed + 0.3 * Math.random() +0.1
 		this.shootInterval = Math.random() * 500 + 500
 		this.score = 1
+		this.hp = 60
 		this.bulletPositions = [
 			{x: -20,y: 20},
 			{x: 20,y: 20}
@@ -32,5 +33,19 @@ class BaseEnemy extends BasePlane{
 			bullet.show(position)
 			bulletContainer.addBullet(bullet)
 		})
+	}
+	public hurt(target:BasePlane){
+		if(this.isExplode)return
+		this.playHurtParticle(target)
+		this.hp -= target.atk
+		if(this.hp<=0){
+			this.explode()	
+		}
+		return this.hp
+	}
+	public explode() {
+		this.isExplode = true
+		this.bitmap.visible = false
+		this.playHurtParticle()
 	}
 }

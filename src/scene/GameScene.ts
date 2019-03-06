@@ -24,6 +24,7 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 	public enemyContainer:EnemyContainer;
 	public constructor() {
 		super();
+		Sound.play()
 	}
 
 	protected partAdded(partName:string,instance:any):void
@@ -58,13 +59,14 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		//通过事件的监听，可以让代码解耦合，不用在对象里保留对方的引用
 		this.heroPlane.addEventListener('setHP',this.setHP,this)
 		this.heroPlane.addEventListener('setScore',this.setScore,this)
+		this.heroPlane.addEventListener('gameOver',this.gameOver,this)
 		//初始化分数和血量
 		this.heroPlane.dispatchHPEvent()
 		this.heroPlane.dispatchScoreEvent()
 	}
 
 	private setHP(event){
-		this.hp.text = event.data
+		this.hp.text = event.data + ''
 	}
 
 	private setScore(event){
@@ -128,8 +130,6 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		this.enemyContainer.createEnemy(pass)
 		//统一敌机的移动和发射子弹
 		this.enemyContainer.moveAndShoot(this.heroPlane, this.bulletContainer, pass)
-		// //统一敌机发射子弹
-		// this.enemyContainer.shoot(this.bulletContainer, pass)
 	}
 
 	/*滚动背景*/
@@ -141,5 +141,11 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 			this.bg1.y = this.bg2.y
 			this.bg2.y = this.bg1.y - this.bg2.height
 		}
+	}
+	private gameOver(){
+		this.removeListener()
+		egret.Tween.removeTweens(this.heroPlane)
+		Sound.close()
+		Global.addScene(new GameOverScene(this.score.text))
 	}
 }

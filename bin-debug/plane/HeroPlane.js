@@ -16,7 +16,7 @@ var HeroPlane = (function (_super) {
     HeroPlane.prototype.init = function () {
         this.setScale(0.5);
         this.flySpeed = 300;
-        this.hp = 1000;
+        this.hp = 10;
         this.bulletSpeed = -0.6;
         this.bulletPositions = [
             { x: -20, y: 20 },
@@ -34,9 +34,15 @@ var HeroPlane = (function (_super) {
     /*派发血量改变事件*/
     HeroPlane.prototype.dispatchHPEvent = function (atk) {
         if (atk === void 0) { atk = 0; }
+        if (this.hp === 0)
+            return;
         this.hp -= atk;
+        if (this.hp <= 0) {
+            this.hp = 0;
+            this.explode();
+        }
         var event = new egret.Event('setHP');
-        event.data = this.hp + '';
+        event.data = this.hp;
         this.dispatchEvent(event);
     };
     /*派发分数改变事件*/
@@ -49,9 +55,7 @@ var HeroPlane = (function (_super) {
     };
     /*子弹发射*/
     HeroPlane.prototype.shoot = function (bulletContainer, time) {
-        // this.bulletPositions.forEach(position => {
         var _this = this;
-        // })
         if (!this.addShootTime(time)) {
             return;
         }
@@ -68,6 +72,14 @@ var HeroPlane = (function (_super) {
         else {
             this.dispatchHPEvent(target.atk);
         }
+        this.playHurtParticle(target);
+    };
+    HeroPlane.prototype.explode = function () {
+        var _this = this;
+        this.playHurtParticle(null, function () {
+            var event = new egret.Event('gameOver');
+            _this.dispatchEvent(event);
+        });
     };
     return HeroPlane;
 }(BasePlane));

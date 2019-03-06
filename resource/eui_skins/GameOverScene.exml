@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameOverSceneSkin" width="512" height="768" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*" >
+	<w:Declarations>
+		<tween:TweenGroup id="animation">
+			<tween:TweenItem target="{label}">
+				<tween:Set>
+					<tween:props>
+						<e:Object y="{-60}" alpha="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="1000" ease="circInOut">
+					<tween:props>
+						<e:Object y="{60}" alpha="{1}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+			<tween:TweenItem target="{group}">
+				<tween:Set>
+					<tween:props>
+						<e:Object alpha="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="1000">
+					<tween:props>
+						<e:Object alpha="{1}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+			<tween:TweenItem target="{button}">
+				<tween:Set>
+					<tween:props>
+						<e:Object y="{768}" alpha="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="1000" ease="circInOut">
+					<tween:props>
+						<e:Object y="{501}" alpha="{1}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+	</w:Declarations>
+	<w:Config id="1694dcd46dd" ></w:Config>
+	<e:Image source="img_bg_level_3_jpg" x="0" y="0"/>
+	<e:Label id="label" text="游戏结束" y="57" size="60" horizontalCenter="0"/>
+	<e:Group id="group" width="303" height="58" y="219" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0">
+		<e:BitmapLabel width="123" height="37" x="14.5" y="10.5" font="font_fnt" text="SCORE" anchorOffsetX="0" anchorOffsetY="0"/>
+		<e:BitmapLabel id="score" width="145" height="37" y="10.5" font="font_fnt" text="0" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="73"/>
+	</e:Group>
+	<e:Button id="button" label="再玩一次" y="420" anchorOffsetX="0" width="204" anchorOffsetY="0" height="50" horizontalCenter="0"/>
+</e:Skin>

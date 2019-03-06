@@ -10,14 +10,17 @@ r.prototype = e.prototype, t.prototype = new r();
 };
 var BulletContainer = (function (_super) {
     __extends(BulletContainer, _super);
+    // private sound:egret.Sound;
     function BulletContainer() {
         var _this = _super.call(this) || this;
         _this.bullets = [];
         return _this;
+        // this.sound = RES.getRes('bullet_mp3')
     }
     BulletContainer.prototype.addBullet = function (bullet) {
         this.bullets.push(bullet);
         this.addChild(bullet);
+        // this.sound.play()
     };
     BulletContainer.prototype.move = function (heroPlane, enemiyContainer, time) {
         for (var i = this.bullets.length - 1; i >= 0; i--) {
@@ -25,9 +28,9 @@ var BulletContainer = (function (_super) {
             bullet.move(time);
             //子弹是主角飞机发射的，检查是否碰撞到敌机
             if (bullet.owner === heroPlane) {
-                var enemy = enemiyContainer.hitCheck(bullet);
+                var enemy = enemiyContainer.hitCheck(heroPlane, bullet);
                 if (enemy) {
-                    heroPlane.dispatchScoreEvent(enemy.score);
+                    // heroPlane.dispatchScoreEvent(enemy.score)
                     this.destroy(i);
                     continue;
                 }

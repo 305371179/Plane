@@ -8,10 +8,6 @@ class BasePlane extends BaseObject{
 	public atk:number = 10;
 	//飞行速度
 	protected flySpeed:number = 300
-	//爆炸粒子动画播放的时间
-	public explodeTime:number = 1000
-	//受攻击粒子动画播放的时间
-	public hurtTime:number = 500
 	//是否爆炸的状态
 	public isExplode:boolean = false
 	//是否销毁的状态
@@ -46,7 +42,7 @@ class BasePlane extends BaseObject{
 	*/
 	public hitCheck(target:BasePlane,length:number = 50):boolean{
 		// 如果对象已经爆炸了，就无需继续检测
-		if(target.isExplode)return false
+		if(this.isExplode || target.isExplode)return false
 		let x1 = this.x
 		let y1 = this.y
 		let x2 = target.x
@@ -79,7 +75,37 @@ class BasePlane extends BaseObject{
 	// }
 	/*受到子弹攻击，遭受伤害*/
 	public hurt(target:BasePlane){
-
+		this.playHurtParticle(target)
+	}
+	protected playHurtParticle(target:BasePlane = null,callback:Function = null){
+		let config = 'boom_hurt_json'
+		if(!target){
+			config = 'boom_explode_json'
+		}
+		let particle = new BaseParticle('boom_yellow_png', config)
+		if(target){
+			let x = target.x
+			let y = target.y
+			if(target instanceof BaseEnemy){
+				x = this.x + target.x >>1
+				y = this.y + target.y >>1
+			}
+			const point = this.globalToLocal(x , y)
+			particle.x = point.x
+			particle.y = point.y
+		}else{
+			particle.x = this.anchorOffsetX
+			particle.y = this.anchorOffsetY
+		}
+		particle.start(500)
+		this.addChild(particle)
+		egret.setTimeout(()=>{
+			this.removeChild(particle)
+			if(!target){
+				this.isDie = true
+				callback && callback()
+			}
+		},this, 1000)
 	}
 	/*受到撞击，遭受伤害*/
 	protected impact(){
