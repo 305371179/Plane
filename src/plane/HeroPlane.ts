@@ -5,7 +5,7 @@ class HeroPlane extends BasePlane {
 	public init(){
 		this.setScale(0.5)
 		this.flySpeed =300 
-		this.hp = 10000;
+		this.hp = 10;
 		this.bulletSpeed = -0.6
 		this.bulletPositions = [
 			{x: -20,y: 20},
