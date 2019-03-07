@@ -26,4 +26,7 @@ class Global {
 		},this,0)
 		
 	}
+	public static getRandomElement(arr:Array<any>): any{
+		return arr[Math.floor(arr.length*Math.random())]
+	}
 }

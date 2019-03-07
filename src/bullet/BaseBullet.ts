@@ -1,7 +1,7 @@
 class BaseBullet extends BasePlane{
 	public owner:BasePlane;
 	
-	public constructor(name:string, owner:BasePlane) {
+	public constructor(owner:BasePlane,name:string) {
 		super(name)
 		this.owner = owner
 		this.setScale(0.2)

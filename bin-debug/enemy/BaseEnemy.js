@@ -14,14 +14,15 @@ var BaseEnemy = (function (_super) {
         var _this = _super.call(this, name) || this;
         //撞击主角所造成的爆炸伤害
         _this.expoldeAtk = 20;
+        _this.bulletType = AlphaBullet;
         return _this;
     }
     BaseEnemy.prototype.init = function () {
         this.setScale(0.5);
         this.appear(100, 100);
-        this.flySpeed = 0.1 + Math.random() * 0.2;
+        this.flySpeed = 0.1 + Math.random() * 0.1;
         this.bulletSpeed = this.flySpeed + 0.3 * Math.random() + 0.1;
-        this.shootInterval = Math.random() * 500 + 500;
+        this.shootInterval = Math.random() * 500 + 800;
         this.score = 1;
         this.hp = 60;
         this.bulletPositions = [
@@ -41,7 +42,8 @@ var BaseEnemy = (function (_super) {
             return;
         }
         this.bulletPositions.forEach(function (position) {
-            var bullet = new BaseBullet('bullet_ball_png', _this);
+            var bulletType = _this.bulletType;
+            var bullet = new bulletType(_this);
             bullet.show(position);
             bulletContainer.addBullet(bullet);
         });

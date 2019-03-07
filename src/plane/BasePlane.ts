@@ -19,6 +19,8 @@ class BasePlane extends BaseObject{
 	//子弹发射的频率
 	public shootInterval:number = 200
 	public threshold:number = 0
+	//碰撞半径
+	public hitCheckRadius:number = 50
 	public constructor(name:string) {
 		super(name)
 		this.init()
@@ -41,6 +43,9 @@ class BasePlane extends BaseObject{
 	通过比较飞机直接的直线距离和给定值length大小，来判断是否碰撞
 	*/
 	public hitCheck(target:BasePlane,length:number = 50):boolean{
+		return this._hitCheck(target,length)
+	}
+	public _hitCheck(target:BasePlane,length:number = 50):boolean{
 		// 如果对象已经爆炸了，就无需继续检测
 		if(this.isExplode || target.isExplode)return false
 		let x1 = this.x
@@ -52,6 +57,7 @@ class BasePlane extends BaseObject{
 		}
         return true
 	}
+	
 	/*减少血量*/
 	public reduceHP(target:BasePlane){
 		this.hp -= target.atk
@@ -114,13 +120,18 @@ class BasePlane extends BaseObject{
 	/*血量耗尽，触发爆炸*/
 	protected explode(){
 	}
+	public getXY(){
+		return new egret.Point(this.anchorOffsetX*this.scaleX,this.anchorOffsetY*this.scaleY)
+	}
 	/*判断飞机是否在屏幕外面了*/
 	public validate(){
-		return !(this.x < -100 || this.x > Global.stage.stageWidth + 100 || this.y < -100 || this.y > Global.stage.stageHeight + 100)
+		const {x,y} = this.getXY()
+		return !(this.x < -x || this.x > Global.stage.stageWidth + y || this.y < -y || this.y > Global.stage.stageHeight +y)
 	}
 	/*销毁对象*/
 	public destroy() {
 		if(this.parent){
+			this.isDie = true
 			this.parent.removeChild(this)
 		}
 	}

@@ -10,7 +10,7 @@ r.prototype = e.prototype, t.prototype = new r();
 };
 var BaseBullet = (function (_super) {
     __extends(BaseBullet, _super);
-    function BaseBullet(name, owner) {
+    function BaseBullet(owner, name) {
         var _this = _super.call(this, name) || this;
         _this.owner = owner;
         _this.setScale(0.2);

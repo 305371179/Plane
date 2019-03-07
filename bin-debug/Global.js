@@ -29,6 +29,9 @@ var Global = (function () {
             }
         }, this, 0);
     };
+    Global.getRandomElement = function (arr) {
+        return arr[Math.floor(arr.length * Math.random())];
+    };
     return Global;
 }());
 __reflect(Global.prototype, "Global");

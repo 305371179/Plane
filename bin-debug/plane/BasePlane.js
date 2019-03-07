@@ -32,6 +32,8 @@ var BasePlane = (function (_super) {
         //子弹发射的频率
         _this.shootInterval = 200;
         _this.threshold = 0;
+        //碰撞半径
+        _this.hitCheckRadius = 50;
         _this.init();
         return _this;
     }
@@ -52,6 +54,10 @@ var BasePlane = (function (_super) {
     通过比较飞机直接的直线距离和给定值length大小，来判断是否碰撞
     */
     BasePlane.prototype.hitCheck = function (target, length) {
+        if (length === void 0) { length = 50; }
+        return this._hitCheck(target, length);
+    };
+    BasePlane.prototype._hitCheck = function (target, length) {
         if (length === void 0) { length = 50; }
         // 如果对象已经爆炸了，就无需继续检测
         if (this.isExplode || target.isExplode)
@@ -127,13 +133,18 @@ var BasePlane = (function (_super) {
     /*血量耗尽，触发爆炸*/
     BasePlane.prototype.explode = function () {
     };
+    BasePlane.prototype.getXY = function () {
+        return new egret.Point(this.anchorOffsetX * this.scaleX, this.anchorOffsetY * this.scaleY);
+    };
     /*判断飞机是否在屏幕外面了*/
     BasePlane.prototype.validate = function () {
-        return !(this.x < -100 || this.x > Global.stage.stageWidth + 100 || this.y < -100 || this.y > Global.stage.stageHeight + 100);
+        var _a = this.getXY(), x = _a.x, y = _a.y;
+        return !(this.x < -x || this.x > Global.stage.stageWidth + y || this.y < -y || this.y > Global.stage.stageHeight + y);
     };
     /*销毁对象*/
     BasePlane.prototype.destroy = function () {
         if (this.parent) {
+            this.isDie = true;
             this.parent.removeChild(this);
         }
     };

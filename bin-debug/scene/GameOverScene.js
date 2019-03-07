@@ -23,6 +23,13 @@ var GameOverScene = (function (_super) {
         _super.prototype.childrenCreated.call(this);
         this.animation.play();
         this.score.text = this.scoreNumber;
+        var score = egret.localStorage.getItem('score') || 0;
+        if (parseInt(this.scoreNumber) > score) {
+            score = this.scoreNumber;
+            egret.localStorage.setItem('score', this.scoreNumber);
+        }
+        this.historyScore.text = score + '';
+        console.log(score);
         this.button.addEventListener(egret.TouchEvent.TOUCH_TAP, function () {
             Global.addScene(new GameScene());
         }, this);

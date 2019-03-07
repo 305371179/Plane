@@ -1,5 +1,5 @@
 class ItemContainer extends egret.Sprite{
-	public threshold:number = 5000;
+	public threshold:number = 500;
 	public createTime:number = 0;
 	public items:Array<BaseItem> = [];
 	public constructor() {
@@ -10,18 +10,20 @@ class ItemContainer extends egret.Sprite{
 		this.createTime += passOnEnterFrame
 		if(this.createTime > this.threshold) {
 			this.createTime = 0
-			this.threshold = Math.random()*10000 + 5000
+			this.threshold = Math.random()*1000 + 500
 			return true
 		}
 		return false
 	}
 	private appear(item:BaseItem){
-		item.appear(Math.random() * Global.stage.stageWidth,-50)
+		const {x,y} = item.getXY()
+		item.appear(x + Math.random() * (Global.stage.stageWidth - x),-y)
 	}
 	public createItem(passOnEnterFrame:number){
 		if(!this.addthreathod(passOnEnterFrame)){
 			return
 		}
+		// console.log(44444)
 		const item = new BloodItem()
 		this.appear(item)
 		this.addItem(item)

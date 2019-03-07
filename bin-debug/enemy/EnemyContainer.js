@@ -12,28 +12,70 @@ var EnemyContainer = (function (_super) {
     __extends(EnemyContainer, _super);
     function EnemyContainer() {
         var _this = _super.call(this) || this;
-        _this.threshold = 1000;
+        _this.threshold = 1500;
         _this.createTime = 0;
         _this.enemies = [];
+        _this.enemyTypes = [AlphaEnemy, BetaEnemy, GammaEnemy];
+        _this.stepTime = 0;
+        _this.currentIndex = 0;
+        _this.stageSetting = [
+            {
+                boss: BossEnemy,
+                time: 20000,
+            },
+            {
+                boss: BossEnemy1,
+                time: 30000,
+            },
+            {
+                boss: BossEnemy2,
+                time: 50000,
+            },
+        ];
         return _this;
+        // let a:any= this.enemyType[0]
+        // let a1:AlphaEnemy = new a()
     }
     //累计间隔时间,控制敌机生成频率
     EnemyContainer.prototype.addthreathod = function (passOnEnterFrame) {
+        this.stepTime += passOnEnterFrame;
         this.createTime += passOnEnterFrame;
         if (this.createTime > this.threshold) {
             this.createTime = 0;
+            this.threshold = 1000 + Math.random() * 500;
             return true;
         }
         return false;
     };
     EnemyContainer.prototype.appear = function (enemy) {
-        enemy.appear(Math.random() * Global.stage.stageWidth, -50);
+        var _a = enemy.getXY(), x = _a.x, y = _a.y;
+        enemy.appear(x + Math.random() * (Global.stage.stageWidth - 2 * x), -y);
     };
     EnemyContainer.prototype.createEnemy = function (passOnEnterFrame) {
         if (!this.addthreathod(passOnEnterFrame)) {
             return;
         }
-        var enemy = new BaseEnemy('alpha_png');
+        // if(this.enemies.length>0)return
+        var enemy;
+        var currentStage = this.stageSetting[this.currentIndex % this.stageSetting.length];
+        if (!this.currentBoss && this.stepTime > currentStage['time']) {
+            enemy = new currentStage['boss'];
+            this.currentBoss = enemy;
+            this.currentIndex++;
+        }
+        else {
+            var type = Global.getRandomElement(this.enemyTypes);
+            enemy = new type();
+        }
+        if (this.currentBoss && this.currentBoss.isDie) {
+            this.currentBoss = null;
+            this.stepTime = 0;
+        }
+        // const enemy = new BetaEnemy()
+        // const enemy = new GammaEnemy()
+        // const enemy = new BossEnemy()
+        // const enemy = new BossEnemy1()
+        // const enemy = new BossEnemy2()
         this.appear(enemy);
         this.addEnemy(enemy);
     };
@@ -67,7 +109,7 @@ var EnemyContainer = (function (_super) {
             //当飞机还在屏幕外面，就不做碰撞检测
             if (enemy.y < 0 || enemy.isExplode)
                 continue;
-            if (target.hitCheck(enemy)) {
+            if (target.hitCheck(enemy, enemy.hitCheckRadius)) {
                 // this.destroy(i)
                 var hp = enemy.hurt(target);
                 if (hp === 0) {

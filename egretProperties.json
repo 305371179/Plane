@@ -25,6 +25,9 @@
       "name": "promise"
     },
     {
+      "name": "dragonBones"
+    },
+    {
       "name": "particle",
       "path": "./libs/particle"
     }

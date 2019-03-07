@@ -41,22 +41,50 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		this.init()
 		this.setListeners()
 	}
+	public a:BossNavBullet;
 	private init() {
+
 		this.bulletContainer = new BulletContainer()
 		this.enemyContainer = new EnemyContainer()
 		this.itemContainer = new ItemContainer()
 		this.heroPlane = new HeroPlane('hero_png')
 		this.heroPlane.appear(Global.stage.stageWidth/2, Global.stage.stageHeight * 2/3)
 
+		
+		// return
+		// let boss = new BossEnemy1()
+		// boss.appear(200,400)
+		// boss.shootInterval = 0
+
+		// boss.bulletPositions.forEach(position => {
+		// 	let bullet:BaseBullet = new BossNavBullet(boss)
+		// 	// bullet.show(position)
+		// 	bullet.show({x:60,y:0})
+		// 	this.bulletContainer.addBullet(bullet)
+		// 	console.log(bullet.x,bullet.y)
+		// })
+		// this.bulletContainer.move(this.heroPlane,this.enemyContainer,40)
+		// this.addChild(boss)
+		
+
+
 		this.addChild(this.bulletContainer)
+		// return
 		this.addChild(this.heroPlane)
 		this.addChild(this.enemyContainer)
 		this.addChild(this.itemContainer)
 
 		this.setChildIndex(this.group,this.numChildren-1)
+
+		// this.a = new BossNavBullet(this.heroPlane)
+		// this.a.show({x:0,y:0})
+		// this.addChild(this.a)
+		// this.addChild(new LaserBullet(this.heroPlane))
+		
 	}
 	/*设置监听*/
 	private setListeners() {
+		// return
 		this.addEventListener(egret.Event.ENTER_FRAME,this.onEnterFrame,this)
 		this.addEventListener(egret.TouchEvent.TOUCH_BEGIN,this.touchStart,this)
 		this.addEventListener(egret.TouchEvent.TOUCH_END,this.touchEnd,this)
@@ -145,9 +173,9 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 		const delY = this.bgSpeed * pass
 		this.bg1.y += delY
 		this.bg2.y += delY
-		if(this.bg1.y > this.bg1.height){
+		if(this.bg1.y > Global.stage.stageHeight){
 			this.bg1.y = this.bg2.y
-			this.bg2.y = this.bg1.y - this.bg2.height
+			this.bg2.y -= this.bg2.height
 		}
 	}
 	private gameOver(){

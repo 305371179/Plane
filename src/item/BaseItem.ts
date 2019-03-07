@@ -2,13 +2,12 @@ class BaseItem extends BasePlane{
 	public factor:number;
 	public constructor(name) {
 		super(name)
-		this.init()
+		// this.init()
 	}
 	public init(){
 		this.flySpeed = 0.2
 		this.setScale(0.2)
 		this.factor = Math.atan(Math.random()*Math.PI/4) * (Math.random()<0.5?1:-1)
-		
 	}
 	/*影响*/
 	public react(heroPlane:HeroPlane){
@@ -19,9 +18,9 @@ class BaseItem extends BasePlane{
 		this.y += delY
 		// console.log(this.factor,4444)
 		this.x += delY * this.factor
-		if(this.x < 0 || this.x > Global.stage.stageWidth){
+		const {x,y} = this.getXY()
+		if(this.x < x|| this.x > Global.stage.stageWidth -x){
 			this.factor *=-1
-			this.x - delY * this.factor
 		}
 		
 	}

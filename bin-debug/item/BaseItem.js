@@ -11,9 +11,8 @@ r.prototype = e.prototype, t.prototype = new r();
 var BaseItem = (function (_super) {
     __extends(BaseItem, _super);
     function BaseItem(name) {
-        var _this = _super.call(this, name) || this;
-        _this.init();
-        return _this;
+        return _super.call(this, name) || this;
+        // this.init()
     }
     BaseItem.prototype.init = function () {
         this.flySpeed = 0.2;
@@ -28,9 +27,9 @@ var BaseItem = (function (_super) {
         this.y += delY;
         // console.log(this.factor,4444)
         this.x += delY * this.factor;
-        if (this.x < 0 || this.x > Global.stage.stageWidth) {
+        var _a = this.getXY(), x = _a.x, y = _a.y;
+        if (this.x < x || this.x > Global.stage.stageWidth - x) {
             this.factor *= -1;
-            this.x - delY * this.factor;
         }
     };
     return BaseItem;

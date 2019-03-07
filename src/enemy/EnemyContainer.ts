@@ -1,30 +1,74 @@
 class EnemyContainer extends egret.Sprite{
-	public threshold:number = 1000;
-	public createTime:number = 0;
+	protected threshold:number = 1500;
+	protected createTime:number = 0;
 	public enemies:Array<BaseEnemy> = [];
+	private enemyTypes:Array<any> = [AlphaEnemy,BetaEnemy,GammaEnemy]
+
+	private stepTime:number = 0
+	private currentIndex:number = 0
+	private currentBoss:BossEnemy;
+	private stageSetting = [
+		{
+			boss:BossEnemy,
+			time: 20000,
+		},
+		{
+			boss:BossEnemy1,
+			time: 30000,
+		},
+		{
+			boss:BossEnemy2,
+			time: 50000,
+		},
+	]
 	public constructor() {
 		super()
+		// let a:any= this.enemyType[0]
+		// let a1:AlphaEnemy = new a()
 	}
 	//累计间隔时间,控制敌机生成频率
 	public addthreathod(passOnEnterFrame:number):boolean{
+		this.stepTime += passOnEnterFrame
 		this.createTime += passOnEnterFrame
 		if(this.createTime > this.threshold) {
 			this.createTime = 0
+			this.threshold = 1000 + Math.random()*500
 			return true
 		}
 		return false
 	}
 	private appear(enemy:BaseEnemy){
-		enemy.appear(Math.random() * Global.stage.stageWidth,-50)
+		const {x,y} = enemy.getXY()
+		enemy.appear(x + Math.random() * (Global.stage.stageWidth-2*x),-y)
 	}
 	public createEnemy(passOnEnterFrame:number){
 		if(!this.addthreathod(passOnEnterFrame)){
 			return
 		}
-		const enemy = new BaseEnemy('alpha_png')
+		// if(this.enemies.length>0)return
+		let enemy;
+		const currentStage = this.stageSetting[this.currentIndex%this.stageSetting.length]
+		if(!this.currentBoss && this.stepTime > currentStage['time']){
+			enemy = new currentStage['boss']
+			this.currentBoss = enemy
+			this.currentIndex ++
+		}else{
+			const type = Global.getRandomElement(this.enemyTypes)
+			enemy = new type()
+		}
+		if(this.currentBoss && this.currentBoss.isDie){
+			this.currentBoss = null
+			this.stepTime = 0
+		}
+		// const enemy = new BetaEnemy()
+		// const enemy = new GammaEnemy()
+		// const enemy = new BossEnemy()
+		// const enemy = new BossEnemy1()
+		// const enemy = new BossEnemy2()
 		this.appear(enemy)
 		this.addEnemy(enemy)
 	}
+
 	public moveAndShoot(heroPlane:HeroPlane,bulletContainer:BulletContainer, time:number){
 		for(let i = this.enemies.length-1;i >= 0;i--){
 			let enemy = this.enemies[i]
@@ -54,7 +98,7 @@ class EnemyContainer extends egret.Sprite{
 			const enemy = this.enemies[i]
 			//当飞机还在屏幕外面，就不做碰撞检测
 			if(enemy.y< 0 || enemy.isExplode)continue
-			if(target.hitCheck(enemy)){
+			if(target.hitCheck(enemy,enemy.hitCheckRadius)){
 				// this.destroy(i)
 				let hp = enemy.hurt(target)
 				if(hp === 0){

@@ -12,7 +12,7 @@ var ItemContainer = (function (_super) {
     __extends(ItemContainer, _super);
     function ItemContainer() {
         var _this = _super.call(this) || this;
-        _this.threshold = 5000;
+        _this.threshold = 500;
         _this.createTime = 0;
         _this.items = [];
         return _this;
@@ -22,18 +22,20 @@ var ItemContainer = (function (_super) {
         this.createTime += passOnEnterFrame;
         if (this.createTime > this.threshold) {
             this.createTime = 0;
-            this.threshold = Math.random() * 10000 + 5000;
+            this.threshold = Math.random() * 1000 + 500;
             return true;
         }
         return false;
     };
     ItemContainer.prototype.appear = function (item) {
-        item.appear(Math.random() * Global.stage.stageWidth, -50);
+        var _a = item.getXY(), x = _a.x, y = _a.y;
+        item.appear(x + Math.random() * (Global.stage.stageWidth - x), -y);
     };
     ItemContainer.prototype.createItem = function (passOnEnterFrame) {
         if (!this.addthreathod(passOnEnterFrame)) {
             return;
         }
+        // console.log(44444)
         var item = new BloodItem();
         this.appear(item);
         this.addItem(item);

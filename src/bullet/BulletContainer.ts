@@ -13,7 +13,16 @@ class BulletContainer extends egret.Sprite{
 	public move(heroPlane:HeroPlane, enemiyContainer:EnemyContainer, time:number){
 		for(let i = this.bullets.length-1;i >= 0;i--){
 			let bullet = this.bullets[i]
-			bullet.move(time)
+			if(bullet instanceof BossNavBullet) {
+				bullet.trace(time,heroPlane)
+			}else {
+				
+				bullet.move(time)
+			}
+			if(bullet.isDie){
+				this.destroy(i)
+				continue
+			}
 			//子弹是主角飞机发射的，检查是否碰撞到敌机
 			if(bullet.owner === heroPlane){
 				const enemy = enemiyContainer.hitCheck(heroPlane,bullet)

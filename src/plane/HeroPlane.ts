@@ -5,7 +5,7 @@ class HeroPlane extends BasePlane {
 	public init(){
 		this.setScale(0.5)
 		this.flySpeed =300 
-		this.hp = 10;
+		this.hp = 100;
 		this.bulletSpeed = -0.6
 		this.bulletPositions = [
 			{x: -20,y: 20},
@@ -15,10 +15,10 @@ class HeroPlane extends BasePlane {
 	}
 	/*飞机的飞行*/
 	public fly(x:number, y:number) {
-		var speedo = Math.sqrt(Math.pow(x-this.x,2)+Math.pow(y-this.y,2))/this.flySpeed;
+		var speed = Math.sqrt(Math.pow(x-this.x,2)+Math.pow(y-this.y,2))/this.flySpeed;
 		egret.Tween.removeTweens(this)
 		var tw = egret.Tween.get( this, {} );
-		tw.to( {x,y}, speedo*1000, egret.Ease.sineOut)
+		tw.to( {x,y}, speed*1000, egret.Ease.sineOut)
 	}
 	/*增加血量*/
 	public addBlood(blood:number = 0){
@@ -50,7 +50,7 @@ class HeroPlane extends BasePlane {
 			return
 		}
 		this.bulletPositions.forEach(position => {
-			let bullet = new BaseBullet('bullet_png', this)
+			let bullet = new HeroBullet(this)
 			bullet.show(position)
 			bulletContainer.addBullet(bullet)
 		})

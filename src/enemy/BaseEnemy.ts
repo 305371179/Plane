@@ -1,15 +1,16 @@
 class BaseEnemy extends BasePlane{
 	//撞击主角所造成的爆炸伤害
 	public expoldeAtk:number = 20
+	public bulletType:any = AlphaBullet
 	public constructor(name:string) {
 		super(name)
 	}
-	public init(){
+	protected init(){
 		this.setScale(0.5)
 		this.appear(100,100)
-		this.flySpeed = 0.1 + Math.random() * 0.2
+		this.flySpeed = 0.1 + Math.random() * 0.1
 		this.bulletSpeed = this.flySpeed + 0.3 * Math.random() +0.1
-		this.shootInterval = Math.random() * 500 + 500
+		this.shootInterval = Math.random() * 500 + 800
 		this.score = 1
 		this.hp = 60
 		this.bulletPositions = [
@@ -29,7 +30,8 @@ class BaseEnemy extends BasePlane{
 			return
 		}
 		this.bulletPositions.forEach(position => {
-			let bullet = new BaseBullet('bullet_ball_png', this)
+			const bulletType:any = <BaseBullet>this.bulletType
+			let bullet:BaseBullet = new bulletType(this)
 			bullet.show(position)
 			bulletContainer.addBullet(bullet)
 		})

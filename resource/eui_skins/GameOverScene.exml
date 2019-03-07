@@ -44,8 +44,12 @@
 	<e:Image source="img_bg_level_3_jpg" x="0" y="0"/>
 	<e:Label id="label" text="游戏结束" y="57" size="60" horizontalCenter="0"/>
 	<e:Group id="group" width="303" height="58" y="219" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="0">
-		<e:BitmapLabel width="123" height="37" x="14.5" y="10.5" font="font_fnt" text="SCORE" anchorOffsetX="0" anchorOffsetY="0"/>
+		<e:BitmapLabel width="123" height="37" x="35.5" y="10.5" font="font_fnt" text="score" anchorOffsetX="0" anchorOffsetY="0"/>
 		<e:BitmapLabel id="score" width="145" height="37" y="10.5" font="font_fnt" text="0" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="73"/>
+	</e:Group>
+	<e:Group id="group0" width="511" height="58" y="144" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="-0.5">
+		<e:BitmapLabel width="184" height="37" x="27.5" y="10.5" font="font_fnt" text="history score" anchorOffsetX="0" anchorOffsetY="0"/>
+		<e:BitmapLabel id="historyScore" width="246" height="37" y="10.5" font="font_fnt" text="0" anchorOffsetX="0" anchorOffsetY="0" horizontalCenter="123.5"/>
 	</e:Group>
 	<e:Button id="button" label="再玩一次" y="420" anchorOffsetX="0" width="204" anchorOffsetY="0" height="50" horizontalCenter="0"/>
 </e:Skin>

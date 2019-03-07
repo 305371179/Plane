@@ -16,7 +16,7 @@ var HeroPlane = (function (_super) {
     HeroPlane.prototype.init = function () {
         this.setScale(0.5);
         this.flySpeed = 300;
-        this.hp = 10;
+        this.hp = 100;
         this.bulletSpeed = -0.6;
         this.bulletPositions = [
             { x: -20, y: 20 },
@@ -26,10 +26,10 @@ var HeroPlane = (function (_super) {
     };
     /*飞机的飞行*/
     HeroPlane.prototype.fly = function (x, y) {
-        var speedo = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2)) / this.flySpeed;
+        var speed = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2)) / this.flySpeed;
         egret.Tween.removeTweens(this);
         var tw = egret.Tween.get(this, {});
-        tw.to({ x: x, y: y }, speedo * 1000, egret.Ease.sineOut);
+        tw.to({ x: x, y: y }, speed * 1000, egret.Ease.sineOut);
     };
     /*增加血量*/
     HeroPlane.prototype.addBlood = function (blood) {
@@ -67,7 +67,7 @@ var HeroPlane = (function (_super) {
             return;
         }
         this.bulletPositions.forEach(function (position) {
-            var bullet = new BaseBullet('bullet_png', _this);
+            var bullet = new HeroBullet(_this);
             bullet.show(position);
             bulletContainer.addBullet(bullet);
         });
