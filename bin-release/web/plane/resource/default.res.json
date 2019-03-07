@@ -1,0 +1,280 @@
+{
+	"groups": [
+		{
+			"keys": "description_json,boom_yellow_png,bullet_png,bullet_ball_png,bullet_basic_png,bullet_comet_png,bullet_dart_png,bullet_missile_png,bullet_navigate_png,bullet_shell_png,bullet_ultra_png,font_fnt,font_png,bigBang_png,blood_png,missile_png,powerBar_png,shield_png,shine_png,ultra_png,laser1_png,laser2_png,laser3_png,laser4_png,laser5_png,laser6_png,laser7_png,laser8_png,StarWar_mp3,bullet_mp3,img_bg_level_1_jpg,img_bg_level_2_jpg,img_bg_level_3_jpg,img_bg_level_4_jpg,img_bg_level_5_jpg,boom_black2_png,boom_black2_json,boom_yellow2_png,boom_yellow2_json,button_down_png,button_up_png,alpha_png,beta_png,gamma_png,hero_png,boom_hurt_json,boom_explode_json,boom_hurt_png,boss_0_png,boss_1_png,boss_2_png,laser_tex_json,laser_tex_png,laser_ske_json",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"name": "description_json",
+			"type": "json",
+			"url": "config/description.json"
+		},
+		{
+			"name": "boom_yellow_png",
+			"type": "image",
+			"url": "assets/boom/boom_yellow.png"
+		},
+		{
+			"name": "bullet_png",
+			"type": "image",
+			"url": "assets/bullet/bullet.png"
+		},
+		{
+			"name": "bullet_ball_png",
+			"type": "image",
+			"url": "assets/bullet/bullet_ball.png"
+		},
+		{
+			"name": "bullet_basic_png",
+			"type": "image",
+			"url": "assets/bullet/bullet_basic.png"
+		},
+		{
+			"name": "bullet_comet_png",
+			"type": "image",
+			"url": "assets/bullet/bullet_comet.png"
+		},
+		{
+			"name": "bullet_dart_png",
+			"type": "image",
+			"url": "assets/bullet/bullet_dart.png"
+		},
+		{
+			"name": "bullet_missile_png",
+			"type": "image",
+			"url": "assets/bullet/bullet_missile.png"
+		},
+		{
+			"name": "bullet_navigate_png",
+			"type": "image",
+			"url": "assets/bullet/bullet_navigate.png"
+		},
+		{
+			"name": "bullet_shell_png",
+			"type": "image",
+			"url": "assets/bullet/bullet_shell.png"
+		},
+		{
+			"name": "bullet_ultra_png",
+			"type": "image",
+			"url": "assets/bullet/bullet_ultra.png"
+		},
+		{
+			"name": "font_fnt",
+			"type": "font",
+			"url": "assets/fonts/font.fnt"
+		},
+		{
+			"name": "font_png",
+			"type": "image",
+			"url": "assets/fonts/font.png"
+		},
+		{
+			"name": "bigBang_png",
+			"type": "image",
+			"url": "assets/items/bigBang.png"
+		},
+		{
+			"name": "blood_png",
+			"type": "image",
+			"url": "assets/items/blood.png"
+		},
+		{
+			"name": "missile_png",
+			"type": "image",
+			"url": "assets/items/missile.png"
+		},
+		{
+			"name": "powerBar_png",
+			"type": "image",
+			"url": "assets/items/powerBar.png"
+		},
+		{
+			"name": "shield_png",
+			"type": "image",
+			"url": "assets/items/shield.png"
+		},
+		{
+			"name": "shine_png",
+			"type": "image",
+			"url": "assets/items/shine.png"
+		},
+		{
+			"name": "ultra_png",
+			"type": "image",
+			"url": "assets/items/ultra.png"
+		},
+		{
+			"name": "laser1_png",
+			"type": "image",
+			"url": "assets/laser/laser1.png"
+		},
+		{
+			"name": "laser2_png",
+			"type": "image",
+			"url": "assets/laser/laser2.png"
+		},
+		{
+			"name": "laser3_png",
+			"type": "image",
+			"url": "assets/laser/laser3.png"
+		},
+		{
+			"name": "laser4_png",
+			"type": "image",
+			"url": "assets/laser/laser4.png"
+		},
+		{
+			"name": "laser5_png",
+			"type": "image",
+			"url": "assets/laser/laser5.png"
+		},
+		{
+			"name": "laser6_png",
+			"type": "image",
+			"url": "assets/laser/laser6.png"
+		},
+		{
+			"name": "laser7_png",
+			"type": "image",
+			"url": "assets/laser/laser7.png"
+		},
+		{
+			"name": "laser8_png",
+			"type": "image",
+			"url": "assets/laser/laser8.png"
+		},
+		{
+			"name": "StarWar_mp3",
+			"type": "sound",
+			"url": "assets/sound/StarWar.mp3"
+		},
+		{
+			"name": "bullet_mp3",
+			"type": "sound",
+			"url": "assets/sound/bullet.mp3"
+		},
+		{
+			"name": "img_bg_level_1_jpg",
+			"type": "image",
+			"url": "assets/bg/img_bg_level_1.jpg"
+		},
+		{
+			"name": "img_bg_level_2_jpg",
+			"type": "image",
+			"url": "assets/bg/img_bg_level_2.jpg"
+		},
+		{
+			"name": "img_bg_level_3_jpg",
+			"type": "image",
+			"url": "assets/bg/img_bg_level_3.jpg"
+		},
+		{
+			"name": "img_bg_level_4_jpg",
+			"type": "image",
+			"url": "assets/bg/img_bg_level_4.jpg"
+		},
+		{
+			"name": "img_bg_level_5_jpg",
+			"type": "image",
+			"url": "assets/bg/img_bg_level_5.jpg"
+		},
+		{
+			"name": "boom_black2_png",
+			"type": "image",
+			"url": "assets/particle/boom_black.png"
+		},
+		{
+			"name": "boom_black2_json",
+			"type": "json",
+			"url": "assets/particle/boom_black.json"
+		},
+		{
+			"name": "boom_yellow2_png",
+			"type": "image",
+			"url": "assets/particle/boom_yellow.png"
+		},
+		{
+			"name": "boom_yellow2_json",
+			"type": "json",
+			"url": "assets/particle/boom_yellow.json"
+		},
+		{
+			"name": "button_down_png",
+			"type": "image",
+			"url": "assets/Button/button_down.png"
+		},
+		{
+			"name": "button_up_png",
+			"type": "image",
+			"url": "assets/Button/button_up.png"
+		},
+		{
+			"name": "alpha_png",
+			"type": "image",
+			"url": "assets/plane/alpha.png"
+		},
+		{
+			"name": "beta_png",
+			"type": "image",
+			"url": "assets/plane/beta.png"
+		},
+		{
+			"name": "gamma_png",
+			"type": "image",
+			"url": "assets/plane/gamma.png"
+		},
+		{
+			"name": "hero_png",
+			"type": "image",
+			"url": "assets/plane/hero.png"
+		},
+		{
+			"name": "boom_hurt_json",
+			"type": "json",
+			"url": "assets/boom/boom_hurt.json"
+		},
+		{
+			"name": "boom_explode_json",
+			"type": "json",
+			"url": "assets/boom/boom_explode.json"
+		},
+		{
+			"name": "boom_hurt_png",
+			"type": "image",
+			"url": "assets/boom/boom_hurt.png"
+		},
+		{
+			"name": "boss_0_png",
+			"type": "image",
+			"url": "assets/plane/boss_0.png"
+		},
+		{
+			"name": "boss_1_png",
+			"type": "image",
+			"url": "assets/plane/boss_1.png"
+		},
+		{
+			"name": "boss_2_png",
+			"type": "image",
+			"url": "assets/plane/boss_2.png"
+		},
+		{
+			"name": "laser_tex_json",
+			"type": "json",
+			"url": "assets/laser/laser_tex.json"
+		},
+		{
+			"name": "laser_tex_png",
+			"type": "image",
+			"url": "assets/laser/laser_tex.png"
+		},
+		{
+			"name": "laser_ske_json",
+			"type": "json",
+			"url": "assets/laser/laser_ske.json"
+		}
+	]
+}

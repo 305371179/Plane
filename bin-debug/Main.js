@@ -161,9 +161,9 @@ var Main = (function (_super) {
      * Create a game scene
      */
     Main.prototype.createGameScene = function () {
-        // Global.addScene(new MenuScene())
+        Global.addScene(new MenuScene());
         // Global.addScene(new GameOverScene())
-        Global.addScene(new GameScene());
+        // Global.addScene(new GameScene())
     };
     return Main;
 }(egret.DisplayObjectContainer));
