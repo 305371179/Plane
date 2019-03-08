@@ -105,9 +105,9 @@ var GameScene = (function (_super) {
         return false;
     };
     GameScene.prototype.touchMove = function (e) {
-        if (this.setLockTimeout()) {
-            return;
-        }
+        // if(this.setLockTimeout()){
+        // 	return
+        // }
         this.heroPlane.fly(e.stageX, e.stageY);
     };
     GameScene.prototype.touchEnd = function (e) {

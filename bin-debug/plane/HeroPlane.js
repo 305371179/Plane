@@ -26,10 +26,12 @@ var HeroPlane = (function (_super) {
     };
     /*飞机的飞行*/
     HeroPlane.prototype.fly = function (x, y) {
+        // this.x = x
+        // this.y = y
         var speed = Math.sqrt(Math.pow(x - this.x, 2) + Math.pow(y - this.y, 2)) / this.flySpeed;
         egret.Tween.removeTweens(this);
         var tw = egret.Tween.get(this, {});
-        tw.to({ x: x, y: y }, speed * 1000, egret.Ease.sineOut);
+        tw.to({ x: x, y: y }, speed * 500 /*, egret.Ease.sineOut*/);
     };
     /*增加血量*/
     HeroPlane.prototype.addBlood = function (blood) {

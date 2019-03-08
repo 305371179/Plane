@@ -134,9 +134,9 @@ class GameScene extends eui.Component implements  eui.UIComponent {
 	}
 
 	private touchMove(e:egret.TouchEvent){
-		if(this.setLockTimeout()){
-			return
-		}
+		// if(this.setLockTimeout()){
+		// 	return
+		// }
 		this.heroPlane.fly(e.stageX,e.stageY)
 	}
 

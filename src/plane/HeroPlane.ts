@@ -15,10 +15,12 @@ class HeroPlane extends BasePlane {
 	}
 	/*飞机的飞行*/
 	public fly(x:number, y:number) {
+		// this.x = x
+		// this.y = y
 		var speed = Math.sqrt(Math.pow(x-this.x,2)+Math.pow(y-this.y,2))/this.flySpeed;
 		egret.Tween.removeTweens(this)
 		var tw = egret.Tween.get( this, {} );
-		tw.to( {x,y}, speed*1000, egret.Ease.sineOut)
+		tw.to( {x,y}, speed*300, egret.Ease.sineOut)
 	}
 	/*增加血量*/
 	public addBlood(blood:number = 0){
